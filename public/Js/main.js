@@ -130,7 +130,6 @@ document.addEventListener('click', async (event) => {
     }
 
     if(event.target.id == 'addNewTask') {
-        console.log('hej')
 
         let title = document.getElementById('newTitle').value
 
@@ -217,12 +216,12 @@ document.addEventListener('click', async (event) => {
     }
 
     if(event.target.textContent == 'Next') {
-        console.log(currPage)
+
         let currTable = document.getElementById('table' + currPage);
         currTable.style.display = 'none'
         
         currPage++;
-        console.log(currPage)
+
         localStorage.setItem('currPage', currPage);
     
         let newTable = document.getElementById('table' + currPage)
@@ -243,12 +242,12 @@ document.addEventListener('click', async (event) => {
     }
 
     if(event.target.textContent == 'Back') {
-        console.log(currPage)
+
         let currTable = document.getElementById('table' + currPage);
         currTable.style.display = 'none'
         
         currPage--;
-        console.log(currPage)
+
         localStorage.setItem('currPage', currPage);
 
         
@@ -289,16 +288,17 @@ async function fillPage(val) {
     
     if(notes.children.length > 0) {
         notes.textContent = ''
+        document.getElementById('newTask').textContent = ''
     }
 
     let data = JSON.parse(val)
-    console.log(data.length)
+
     const limit = 5
     localStorage.setItem('limit', 5);
     localStorage.setItem('dataLength', data.length);
     let num = 0
     for(let page = 1; page <= Math.ceil(data.length/limit); page++) {
-        console.log(page)
+        
         localStorage.setItem('maxPages', page)
         let table = document.createElement('table')
         let trDesc = document.createElement('tr')

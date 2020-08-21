@@ -4,9 +4,18 @@
 {"title":"laundry","checked":true,"_id":"9XgOlXrHpYzyaBqt","createdAt":{"$$date":1598000577734},"updatedAt":{"$$date":1598014679546}}
 {"title":"dishes","checked":false,"_id":"MHHFPZImr8SJ5ZfV","createdAt":{"$$date":1598000584648},"updatedAt":{"$$date":1598026137245}}
 {"checked":false,"title":"Sit","_id":"NyKetRuuKJsyNx2L","createdAt":{"$$date":1598024322693},"updatedAt":{"$$date":1598024322693}}
+{"checked":false,"title":"wefwef","_id":"SmweAv06q5QEgSeB","createdAt":{"$$date":1598026951703},"updatedAt":{"$$date":1598026951703}}
 {"checked":false,"title":"Water flowers","_id":"XJxk4SL7ahd5OzuO","createdAt":{"$$date":1598024239207},"updatedAt":{"$$date":1598024239207}}
+{"checked":false,"title":"express yourself","_id":"azpMHDH1hajc6N5I","createdAt":{"$$date":1598026762354},"updatedAt":{"$$date":1598026762354}}
+{"checked":false,"title":"go back","_id":"g7dFD7FINoZD8k6d","createdAt":{"$$date":1598026751127},"updatedAt":{"$$date":1598026751127}}
 {"checked":false,"title":"do something","_id":"iUbxhSNoaIkDGJDO","createdAt":{"$$date":1598025518607},"updatedAt":{"$$date":1598025518607}}
-{"checked":false,"title":"Watch something","_id":"ldLSLRNVOP9MmRhV","createdAt":{"$$date":1598026544556},"updatedAt":{"$$date":1598026544556}}
+{"checked":true,"title":"Watch something","_id":"ldLSLRNVOP9MmRhV","createdAt":{"$$date":1598026544556},"updatedAt":{"$$date":1598026920366}}
+{"checked":false,"title":"go home","_id":"pvrRk8fycB21rhBE","createdAt":{"$$date":1598026746289},"updatedAt":{"$$date":1598026746289}}
+{"checked":false,"title":"hehe","_id":"uMPSQSdMsv7NWBfT","createdAt":{"$$date":1598026826002},"updatedAt":{"$$date":1598026826002}}
 {"title":"groceries","checked":false,"_id":"wa8LEBUpo7Q5VW4o","createdAt":{"$$date":1598000591468},"updatedAt":{"$$date":1598009523844}}
 {"checked":false,"title":"Suck the dust","_id":"xSuLIzUiscWrYegr","createdAt":{"$$date":1598022519452},"updatedAt":{"$$date":1598023859378}}
 {"checked":false,"title":"cook ","_id":"zSSn1pSCE1GT9sSD","createdAt":{"$$date":1598024249505},"updatedAt":{"$$date":1598024249505}}
+{"checked":false,"title":"hejhehe","_id":"cwFEHzplSxS86JKk","createdAt":{"$$date":1598027021078},"updatedAt":{"$$date":1598027021078}}
+{"checked":false,"title":"go home","_id":"pvrRk8fycB21rhBE","createdAt":{"$$date":1598026746289},"updatedAt":{"$$date":1598027025600}}
+{"checked":false,"title":"go home","_id":"pvrRk8fycB21rhBE","createdAt":{"$$date":1598026746289},"updatedAt":{"$$date":1598027025729}}
+{"checked":true,"title":"Watch something","_id":"ldLSLRNVOP9MmRhV","createdAt":{"$$date":1598026544556},"updatedAt":{"$$date":1598027027936}}
