@@ -1,13 +1,14 @@
-// const functions = require('../../Controller/functions')
-
 document.addEventListener('DOMContentLoaded', async (event) => {   
-
-        await fetch('/all', {method: 'GET'})
-        .then(res => res.text())
-        .then(val => fillPage(val))
-        .catch(err => console.log(err))
+    localStorage.setItem('currPage', 1);
+        load()
 })
 document.addEventListener('click', async (event) => {
+
+    let currPage = localStorage.getItem('currPage');
+    const totalPages = localStorage.getItem('maxPages')
+
+    // console.log('currPage: ' + currPage)
+    // console.log('totalPages: ' + totalPages)
 
     let targetGrandpa = event.target.parentNode.parentNode
     let targetParent = event.target.parentNode
@@ -78,8 +79,7 @@ document.addEventListener('click', async (event) => {
         
         await fetch(`/${currId}`, put)
         .then(res => {
-            console.log(res)
-            reload()
+            load()
         })
         .catch(err => console.log(err))
        
@@ -147,7 +147,7 @@ document.addEventListener('click', async (event) => {
 
         await fetch('/', post)
         .then(res => console.log(res))
-        .then(data => reload())
+        .then(data => load())
         .catch(err => console.log(err))
     }
 
@@ -158,7 +158,7 @@ document.addEventListener('click', async (event) => {
         let data = {
             sortBy: sortBy
         }
-
+        console.log()
         const options = {
             method: 'POST', 
             headers: {
@@ -170,13 +170,13 @@ document.addEventListener('click', async (event) => {
         .then(res => res.text())
         .then(data => {
 
-            let created = document.getElementById('created')
+            let created = document.getElementById('created' + currPage)
             if(event.target.name > 0) {
-                event.target.name = -1
+                created.name = -1
             } else {
-                event.target.name = 1
+                created.name = 1
             }
-            created.name = event.target.name
+          
  
             fillPage(data)
         })
@@ -203,116 +203,216 @@ document.addEventListener('click', async (event) => {
         .then(res => res.text())
         .then(data => {
 
-            let updated = document.getElementById('updated')
+            let updated = document.getElementById('updated' + currPage)
             if(event.target.name > 0) {
-                event.target.name = -1
+                updated.name = -1
             } else {
-                event.target.name = 1
+                updated.name = 1
             }
-            updated.name = event.target.name
 
             fillPage(data)
         })
         .catch(err => console.log(err))
         
     }
+
+    if(event.target.textContent == 'Next') {
+        console.log(currPage)
+        let currTable = document.getElementById('table' + currPage);
+        currTable.style.display = 'none'
+        
+        currPage++;
+        console.log(currPage)
+        localStorage.setItem('currPage', currPage);
+    
+        let newTable = document.getElementById('table' + currPage)
+        newTable.style.display = 'block'
+
+        let next = document.getElementById('next')
+        let prev = document.getElementById('prev')
+        if(currPage < totalPages) {
+            next.disabled = false;
+        } else {
+            next.disabled = true;
+        }
+        if(currPage == 1) {
+            prev.disabled = true
+        } else {
+            prev.disabled = false;
+        }
+    }
+
+    if(event.target.textContent == 'Back') {
+        console.log(currPage)
+        let currTable = document.getElementById('table' + currPage);
+        currTable.style.display = 'none'
+        
+        currPage--;
+        console.log(currPage)
+        localStorage.setItem('currPage', currPage);
+
+        
+    
+        let newTable = document.getElementById('table' + currPage)
+        newTable.style.display = 'block'
+
+        let next = document.getElementById('next')
+        let prev = document.getElementById('prev')
+        if(currPage < totalPages) {
+            
+            next.disabled = false;
+        } else {
+
+            next.disabled = true;
+        }
+        if(currPage == 1) {
+            
+            prev.disabled = true;
+        } else {
+
+            prev.disabled = false;
+        }
+    }
+    console.log(currPage)
 })
 
-function reload() {
-    setTimeout( () => {
-        window.location.reload(1);
-    }, 1000)
+async function load() {
+    await fetch('/all', {method: 'GET'})
+    .then(res => res.text())
+    .then(val => fillPage(val))
+    .catch(err => console.log(err))
 }
 
 async function fillPage(val) {
 
     const notes = document.getElementById('notes')
+    
     if(notes.children.length > 0) {
-        let table = document.getElementById('table')
-        notes.removeChild(table)
+        notes.textContent = ''
     }
 
-            let data = JSON.parse(val)
-            let table = document.createElement('table')
-            let trDesc = document.createElement('tr')
-            let td1 = document.createElement('td')
-            let td2 = document.createElement('td')
-            let td3 = document.createElement('td')
-            let td4 = document.createElement('td')
+    let data = JSON.parse(val)
+    console.log(data.length)
+    const limit = 5
+    localStorage.setItem('limit', 5);
+    localStorage.setItem('dataLength', data.length);
+    let num = 0
+    for(let page = 1; page <= Math.ceil(data.length/limit); page++) {
+        console.log(page)
+        localStorage.setItem('maxPages', page)
+        let table = document.createElement('table')
+        let trDesc = document.createElement('tr')
+        let td1 = document.createElement('td')
+        let td2 = document.createElement('td')
+        let td3 = document.createElement('td')
+        let td4 = document.createElement('td')
 
-            let aUpdated = document.createElement('a')
-            let aCreated = document.createElement('a')
-            aUpdated.textContent = 'Updated at'
-            aUpdated.style.color = 'blue'
-            aCreated.textContent = 'Created at'
-            aCreated.style.color = 'blue'
+        let aUpdated = document.createElement('a')
+        let aCreated = document.createElement('a')
 
-            if(data[0].createdAt > data[data.length-1].createdAt) {
-                aCreated.setAttribute('name', '1')
- 
-            } else {
-                aCreated.setAttribute('name', '-1')
+        aUpdated.textContent = 'Updated at'
+        aUpdated.style.color = 'blue'
+        aCreated.textContent = 'Created at'
+        aCreated.style.color = 'blue'
 
-  
+        if(data[0].createdAt > data[data.length-1].createdAt) {
+            aCreated.setAttribute('name', '1')
+        } else {
+            aCreated.setAttribute('name', '-1')
+        }
+
+        if(data[0].updatedAt > data[data.length-1].updatedAt) {
+            aUpdated.setAttribute('name', '1')
+        } else {
+            aUpdated.setAttribute('name', '-1')
+        }
+
+        aCreated.setAttribute('id', 'created'+page)
+        aUpdated.setAttribute('id', 'updated'+page)
+
+        td1.textContent = 'Done'
+        td2.textContent = 'To-Do'
+        td3.appendChild(aCreated)
+        td4.appendChild(aUpdated)
+
+        trDesc.appendChild(td1)
+        trDesc.appendChild(td2)
+        trDesc.appendChild(td3)
+        trDesc.appendChild(td4)
+
+        table.appendChild(trDesc)
+        table.setAttribute('id', 'table'+page)
+
+        for(let note = num; note < data.length; note++) {
+            let tr = document.createElement('tr')
+            let tdChecked = document.createElement('td')
+            let tdTitle = document.createElement('td')
+            let tdCreated = document.createElement('td')
+            let tdUpdated = document.createElement('td')
+            let tdDelete = document.createElement('td')
+            let tdEdit = document.createElement('td')
+            let checkbox = document.createElement('input')
+            checkbox.setAttribute('id', 'check'+num)
+            checkbox.setAttribute('type', 'checkbox')
+
+            if(data[note].checked){
+                checkbox.setAttribute('checked', true)
             }
 
-            if(data[0].updatedAt > data[data.length-1].updatedAt) {
-
-                aUpdated.setAttribute('name', '1')
-            } else {
-
-                aUpdated.setAttribute('name', '-1')
-  
-            }
+            tdChecked.append(checkbox)
+            tdTitle.append(data[note].title)
+            tdCreated.append(data[note].createdAt)
+            tdUpdated.append(data[note].updatedAt)
+            tdDelete.append('[X]')
+            tdEdit.append('Edit')
+            tr.setAttribute('id', data[note]._id)
+            tr.appendChild(tdChecked)
+            tr.appendChild(tdTitle)
+            tr.appendChild(tdCreated)
+            tr.appendChild(tdUpdated)
+            tr.appendChild(tdEdit)
+            tr.appendChild(tdDelete)
+            table.appendChild(tr)
             
-            aCreated.setAttribute('id', 'created')
-            aUpdated.setAttribute('id', 'updated')
-
-            td1.textContent = 'Done'
-            td2.textContent = 'To-Do'
-            td3.appendChild(aCreated)
-            td4.appendChild(aUpdated)
-
-            trDesc.appendChild(td1)
-            trDesc.appendChild(td2)
-            trDesc.appendChild(td3)
-            trDesc.appendChild(td4)
-            table.appendChild(trDesc)
-            table.setAttribute('id', 'table')
-
-            let num = 1
-            for(let note in data){
-                let tr = document.createElement('tr')
-                let tdChecked = document.createElement('td')
-                let tdTitle = document.createElement('td')
-                let tdCreated = document.createElement('td')
-                let tdUpdated = document.createElement('td')
-                let tdDelete = document.createElement('td')
-                let tdEdit = document.createElement('td')
-
-                let checkbox = document.createElement('input')
-                checkbox.setAttribute('id', 'check'+num)
-                checkbox.setAttribute('type', 'checkbox')
-                if(data[note].checked){
-                    checkbox.setAttribute('checked', true)
-                } 
-
-                tdChecked.append(checkbox)
-                tdTitle.append(data[note].title)
-                tdCreated.append(data[note].createdAt)
-                tdUpdated.append(data[note].updatedAt)
-                tdDelete.append('[X]')
-                tdEdit.append('Edit')
-
-                tr.setAttribute('id', data[note]._id)
-                tr.appendChild(tdChecked)
-                tr.appendChild(tdTitle)
-                tr.appendChild(tdCreated)
-                tr.appendChild(tdUpdated)
-                tr.appendChild(tdEdit)
-                tr.appendChild(tdDelete)
-                table.appendChild(tr)
-                num++
+            num++
+            if((num/limit) == page) {
+                break;
             }
-            notes.append(table)
-}
+        }
+        if(page > 1) {
+            table.style.display = 'none'
+        }
+        notes.append(table)
+        
+    }
+    if(num > 4) {
+        let next = document.createElement('button')
+        let prev = document.createElement('button')
+
+        next.setAttribute('value', '2')
+        prev.setAttribute('value', '1')
+
+        next.setAttribute('id', 'next')
+        prev.setAttribute('id', 'prev')
+
+        next.textContent = 'Next'
+        prev.textContent = 'Back'
+
+        notes.append(prev)
+        notes.append(next)
+
+        if(data.length/limit >= 1) {
+
+            let prev = document.getElementById('prev')
+            prev.disabled = true;
+        }
+
+        if(data.length/limit <= 1) {
+            let next = document.getElementById('next')
+            next.disabled = true;
+        }
+
+
+    }
+} 
+
