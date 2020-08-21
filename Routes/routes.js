@@ -20,6 +20,10 @@ router.delete('/:id', functions.delete)
 
 router.get('/', functions.get)
 
+router.post('/sortCreated', functions.sortCreated)
+
+router.post('/sortUpdated', functions.sortUpdated)
+
 
 
 //export {router};

@@ -90,19 +90,31 @@ module.exports = {
         })
     },
 
-    removeChild: (id) => {
-       console.log(id)
-        todoCollection.remove({_id: id}, {},(err, docs) => {
-            if (err) {
+    sortCreated: (req, res) => {
+        let sortBy = req.body.sortBy;
+
+        todoCollection.find({}).sort({createdAt: sortBy}).limit(5).exec((err, docs) => {
+            if(err) {
                 console.log(err)
             } else {
-                if(docs == 1) {
-                    console.log('deleted ' + docs)
-                } else {
-                    console.log('not deleted ' + docs)
-                }
-                
+                // console.log(docs)
+                res.send(docs)
             }
+            
+        })
+    },
+
+    sortUpdated: (req, res) => {
+        let sortBy = req.body.sortBy;
+
+        todoCollection.find({}).sort({updatedAt: sortBy}).limit(5).exec((err, docs) => {
+            if(err) {
+                console.log(err)
+            } else {
+                // console.log(docs)
+                res.send(docs)
+            }
+            
         })
     }
 }

@@ -4,64 +4,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
         await fetch('/all', {method: 'GET'})
         .then(res => res.text())
-        .then(val => {
-            const notes = document.getElementById('notes')
-            let data = JSON.parse(val)
-            let table = document.createElement('table')
-            let trDesc = document.createElement('tr')
-            let td1 = document.createElement('td')
-            let td2 = document.createElement('td')
-            let td3 = document.createElement('td')
-            let td4 = document.createElement('td')
-
-            td1.textContent = 'Done'
-            td2.textContent = 'To-Do'
-            td3.textContent = 'Created at'
-            td4.textContent = 'Updated at'
-
-            trDesc.appendChild(td1)
-            trDesc.appendChild(td2)
-            trDesc.appendChild(td3)
-            trDesc.appendChild(td4)
-            table.appendChild(trDesc)
-            table.setAttribute('id', 'table')
-
-            let num = 1
-            for(let note in data){
-                let tr = document.createElement('tr')
-                let tdChecked = document.createElement('td')
-                let tdTitle = document.createElement('td')
-                let tdCreated = document.createElement('td')
-                let tdUpdated = document.createElement('td')
-                let tdDelete = document.createElement('td')
-                let tdEdit = document.createElement('td')
-
-                let checkbox = document.createElement('input')
-                checkbox.setAttribute('id', 'check'+num)
-                checkbox.setAttribute('type', 'checkbox')
-                if(data[note].checked){
-                    checkbox.setAttribute('checked', true)
-                } 
-
-                tdChecked.append(checkbox)
-                tdTitle.append(data[note].title)
-                tdCreated.append(data[note].createdAt)
-                tdUpdated.append(data[note].updatedAt)
-                tdDelete.append('[X]')
-                tdEdit.append('Edit')
-
-                tr.setAttribute('id', data[note]._id)
-                tr.appendChild(tdChecked)
-                tr.appendChild(tdTitle)
-                tr.appendChild(tdCreated)
-                tr.appendChild(tdUpdated)
-                tr.appendChild(tdEdit)
-                tr.appendChild(tdDelete)
-                table.appendChild(tr)
-                num++
-            }
-            notes.append(table)
-        })
+        .then(val => fillPage(val))
         .catch(err => console.log(err))
 })
 document.addEventListener('click', async (event) => {
@@ -195,7 +138,6 @@ document.addEventListener('click', async (event) => {
             title: title
         }
 
-        console.log(title)
         const post = {
             method: 'POST', 
             headers: {
@@ -208,10 +150,169 @@ document.addEventListener('click', async (event) => {
         .then(data => reload())
         .catch(err => console.log(err))
     }
+
+    if(event.target.textContent == 'Created at') {
+        
+        let sortBy = event.target.name
+
+        let data = {
+            sortBy: sortBy
+        }
+
+        const options = {
+            method: 'POST', 
+            headers: {
+                'Content-type': 'application/json' },
+            body: JSON.stringify(data)
+        }
+
+        await fetch('/sortCreated', options)
+        .then(res => res.text())
+        .then(data => {
+
+            let created = document.getElementById('created')
+            if(event.target.name > 0) {
+                event.target.name = -1
+            } else {
+                event.target.name = 1
+            }
+            created.name = event.target.name
+ 
+            fillPage(data)
+        })
+        .catch(err => console.log(err))
+        
+    }
+
+    if(event.target.textContent == 'Updated at') {
+
+        let sortBy = event.target.name
+
+        let data = {
+            sortBy: sortBy
+        }
+
+        const options = {
+            method: 'POST', 
+            headers: {
+                'Content-type': 'application/json' },
+            body: JSON.stringify(data)
+        }
+
+        await fetch('/sortUpdated', options)
+        .then(res => res.text())
+        .then(data => {
+
+            let updated = document.getElementById('updated')
+            if(event.target.name > 0) {
+                event.target.name = -1
+            } else {
+                event.target.name = 1
+            }
+            updated.name = event.target.name
+
+            fillPage(data)
+        })
+        .catch(err => console.log(err))
+        
+    }
 })
 
 function reload() {
     setTimeout( () => {
         window.location.reload(1);
     }, 1000)
+}
+
+async function fillPage(val) {
+
+    const notes = document.getElementById('notes')
+    if(notes.children.length > 0) {
+        let table = document.getElementById('table')
+        notes.removeChild(table)
+    }
+
+            let data = JSON.parse(val)
+            let table = document.createElement('table')
+            let trDesc = document.createElement('tr')
+            let td1 = document.createElement('td')
+            let td2 = document.createElement('td')
+            let td3 = document.createElement('td')
+            let td4 = document.createElement('td')
+
+            let aUpdated = document.createElement('a')
+            let aCreated = document.createElement('a')
+            aUpdated.textContent = 'Updated at'
+            aUpdated.style.color = 'blue'
+            aCreated.textContent = 'Created at'
+            aCreated.style.color = 'blue'
+
+            if(data[0].createdAt > data[data.length-1].createdAt) {
+                aCreated.setAttribute('name', '1')
+ 
+            } else {
+                aCreated.setAttribute('name', '-1')
+
+  
+            }
+
+            if(data[0].updatedAt > data[data.length-1].updatedAt) {
+
+                aUpdated.setAttribute('name', '1')
+            } else {
+
+                aUpdated.setAttribute('name', '-1')
+  
+            }
+            
+            aCreated.setAttribute('id', 'created')
+            aUpdated.setAttribute('id', 'updated')
+
+            td1.textContent = 'Done'
+            td2.textContent = 'To-Do'
+            td3.appendChild(aCreated)
+            td4.appendChild(aUpdated)
+
+            trDesc.appendChild(td1)
+            trDesc.appendChild(td2)
+            trDesc.appendChild(td3)
+            trDesc.appendChild(td4)
+            table.appendChild(trDesc)
+            table.setAttribute('id', 'table')
+
+            let num = 1
+            for(let note in data){
+                let tr = document.createElement('tr')
+                let tdChecked = document.createElement('td')
+                let tdTitle = document.createElement('td')
+                let tdCreated = document.createElement('td')
+                let tdUpdated = document.createElement('td')
+                let tdDelete = document.createElement('td')
+                let tdEdit = document.createElement('td')
+
+                let checkbox = document.createElement('input')
+                checkbox.setAttribute('id', 'check'+num)
+                checkbox.setAttribute('type', 'checkbox')
+                if(data[note].checked){
+                    checkbox.setAttribute('checked', true)
+                } 
+
+                tdChecked.append(checkbox)
+                tdTitle.append(data[note].title)
+                tdCreated.append(data[note].createdAt)
+                tdUpdated.append(data[note].updatedAt)
+                tdDelete.append('[X]')
+                tdEdit.append('Edit')
+
+                tr.setAttribute('id', data[note]._id)
+                tr.appendChild(tdChecked)
+                tr.appendChild(tdTitle)
+                tr.appendChild(tdCreated)
+                tr.appendChild(tdUpdated)
+                tr.appendChild(tdEdit)
+                tr.appendChild(tdDelete)
+                table.appendChild(tr)
+                num++
+            }
+            notes.append(table)
 }
