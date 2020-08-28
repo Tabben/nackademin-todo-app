@@ -1,120 +1,126 @@
-const todoCollection = require('../Model/model')
-// import {todoCollection} from '../Model/model.js' 
+const db = require('../Model/model')
+// import {db} from '../Model/model.js' 
 
 
 module.exports = {
-    add: (req, res) => {
+    add: async (req, res) => {
         let title = req.body.title
+        try {
+            const note = await db.add(title)
 
-        todoCollection.insert({checked: false, title: title}, (err, docs) => {
-            if (err) {
-                res.send(err)
-            } else {
-                res.send(docs)
-            }
-        })
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
+        
     },
 
-    getAll: (req, res) => {
-        todoCollection.find({}, (err, docs) => {
-            if (!err) {
-                res.send(docs)
-            }
-        })
+    getAll: async (req, res) => {
+        try {
+            const note = await db.getAll()
+ 
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
-    getNote: (req, res) => {
-        todoCollection.find({_id: req.params.id}, (err, docs) => {
-            if (!err) {
-                res.send(docs)
-            }
-        })
+    getNote: async (req, res) => {
+        const id = req.params.id
+        try {
+            const note = await db.getNote(id)
+ 
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
     get: (req, res) => {
-        // todoCollection.find({}, (err, docs) => {
-        //     if(!err) {
 
-        //     }
-        // })
         res.sendFile('index.html', { root: __dirname + '/../public/views' })
     },
 
-    update: (req, res) => {
-        console.log(req.body)
+    update: async (req, res) => {
+        const id = req.params.id
         const title = req.body.title
         const checked = req.body.checked
-        console.log(req.params.id)
-        todoCollection.update({ _id: req.params.id}, { $set: { title: title, checked: checked } }, (err, docs) => {
-            if (err) {
-                res.send(err)
-            } else {
-                if(docs == 1) {
-                    console.log('updated' + docs)
-                    
-                } else {
-                    console.log('not updated ' + docs)
-                }
-                res.sendStatus(201)
-            }
-        })
+        try {
+            const note = await db.update(id, title, checked)
+ 
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
-    set: (req, res) => {
-        console.log(req.body)
-
+    setCheck: async (req, res) => {
+   
+        const id = req.params.id
         const checked = req.body.checked
-        console.log(req.params.id)
-        todoCollection.update({ _id: req.params.id}, { $set: { checked: checked } }, (err, docs) => {
-            if (err) {
-                res.send(err)
-            } else {
-                if(docs == 1) {
-                    console.log('updated' + docs)
-                    
-                } else {
-                    console.log('not updated ' + docs)
-                }
-                res.sendStatus(201)
-            }
-        })
+        try {
+            const note = await db.setCheck(id, checked)
+ 
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
-    delete: (req, res) => {
-        todoCollection.remove({ _id: req.params.id },{} ,(err, docs) => {
-            if (err) {
-                res.send(err)
-            } else {
-                res.send('deleted')
-            }
-        })
+    delete: async (req, res) => {
+        const id = req.params.id
+ 
+        try {
+            const note = await db.delete(id)
+ 
+            res.json(note).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
-    sortCreated: (req, res) => {
+    sortCreated: async (req, res) => {
         let sortBy = req.body.sortBy;
 
-        todoCollection.find({}).sort({createdAt: sortBy}).exec((err, docs) => {
-            if(err) {
-                console.log(err)
-            } else {
-                // console.log(docs)
-                res.send(docs)
-            }
-            
-        })
+        try {
+            const notes = await db.sortCreated(sortBy)
+ 
+            res.json(notes).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     },
 
-    sortUpdated: (req, res) => {
+    sortUpdated: async (req, res) => {
         let sortBy = req.body.sortBy;
 
-        todoCollection.find({}).sort({updatedAt: sortBy}).exec((err, docs) => {
-            if(err) {
-                console.log(err)
-            } else {
-                // console.log(docs)
-                res.send(docs)
-            }
-            
-        })
+        try {
+            const notes = await db.sortCreated(sortBy)
+ 
+            res.json(notes).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
+    },
+
+    pagination: async (req, res) => {
+        let sortBy = req.body.sortBy;
+        const page = req.params.page
+        try {
+            const notes = await db.pagination(page, sortBy, )
+ 
+            res.json(notes).status(200)
+        } catch (error) {
+            console.log("error")
+            res.json({error: error.message}).status(500)
+        }
     }
 }

@@ -1,15 +1,24 @@
 document.addEventListener('DOMContentLoaded', async (event) => {   
+    
+    if(!localStorage.getItem('sortStyle')) {
+        localStorage.setItem('sortStyle', 'none')
+        localStorage.setItem('sortBy', 1)
+    }
     localStorage.setItem('currPage', 1);
-        load()
+    
+
+    load()
 })
 document.addEventListener('click', async (event) => {
 
     let currPage = localStorage.getItem('currPage');
-    const totalPages = localStorage.getItem('maxPages')
+    const totalPages = localStorage.getItem('pages');
+    let sortBy = localStorage.getItem('sortBy')
+    let sortStyle = localStorage.getItem('sortStyle')
 
     // console.log('currPage: ' + currPage)
     // console.log('totalPages: ' + totalPages)
-
+    
     let targetGrandpa = event.target.parentNode.parentNode
     let targetParent = event.target.parentNode
     let target = event.target
@@ -85,10 +94,12 @@ document.addEventListener('click', async (event) => {
        
     }
 
-    if(event.target.type == 'checkbox') {
+    if(target.type == 'checkbox') {
 
         let inputGrandPaIndex =Array.prototype.indexOf.call(targetParent.parentNode.parentNode.children, targetParent.parentNode)
         let done = document.getElementById('check' + inputGrandPaIndex).checked
+        console.log(inputGrandPaIndex)
+        console.log(done)
         const data = {
             checked: done
         }
@@ -98,13 +109,13 @@ document.addEventListener('click', async (event) => {
                 'Content-type': 'application/json' },
             body: JSON.stringify(data) 
         }
-
+        console.log(grandpaId)
         await fetch(`/${grandpaId}`, patch)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
 
-    if(event.target.id == 'addNew') {
+    if(target.id == 'addNew') {
         let btn = document.getElementById('addNew')
         
         let newTask = document.getElementById('newTask')
@@ -129,7 +140,7 @@ document.addEventListener('click', async (event) => {
         btn.style.display = 'none'
     }
 
-    if(event.target.id == 'addNewTask') {
+    if(target.id == 'addNewTask') {
 
         let title = document.getElementById('newTitle').value
 
@@ -149,15 +160,54 @@ document.addEventListener('click', async (event) => {
         .then(data => load())
         .catch(err => console.log(err))
     }
+    
+    if(target.classList.value == 'pages') {
+       
+        localStorage.setItem('currPage', target.name)
+        currPage = localStorage.getItem('currPage')
+        let data = {
+            sortBy: sortBy,
+            sortStyle: sortStyle
+        }
+        const post = {
+            method: 'POST', 
+            headers: {
+                'Content-type': 'application/json' },
+            body: JSON.stringify(data)
+        }
 
-    if(event.target.textContent == 'Created at') {
+        await fetch(`/page/${currPage}`, post)
+        .then(res => res.text())
+        .then(data => {
+
+            let created = document.getElementById('created')
+            if(event.target.name > 0) {
+                created.name = -1
+            } else {
+                created.name = 1
+            }
+            localStorage.setItem('sortStyle', 'created')
+            
+            fillPage(data)
+        })
+        .catch(err => console.log(err))
+        console.log(sortStyle)
+            console.log(sortBy)
+            console.log(currPage)
+    }
+
+    if(target.textContent == 'Created at') {
         
-        let sortBy = event.target.name
+        sortBy = event.target.name
+        localStorage.setItem('sortBy', sortBy)
+        localStorage.setItem('sortStyle', 'created')
+        sortStyle = localStorage.getItem('sortStyle')
 
         let data = {
-            sortBy: sortBy
+            sortBy: sortBy,
+            sortStyle: sortStyle
         }
-        console.log()
+        
         const options = {
             method: 'POST', 
             headers: {
@@ -165,17 +215,17 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch('/sortCreated', options)
+        await fetch(`/page/${currPage}`, options)
         .then(res => res.text())
         .then(data => {
 
-            let created = document.getElementById('created' + currPage)
+            let created = document.getElementById('created')
             if(event.target.name > 0) {
                 created.name = -1
             } else {
                 created.name = 1
             }
-          
+            
  
             fillPage(data)
         })
@@ -183,14 +233,18 @@ document.addEventListener('click', async (event) => {
         
     }
 
-    if(event.target.textContent == 'Updated at') {
+    if(target.textContent == 'Updated at') {
 
-        let sortBy = event.target.name
-
+        sortBy = event.target.name
+        localStorage.setItem('sortBy', sortBy)
+        localStorage.setItem('sortStyle', 'updated')
+        sortStyle = localStorage.getItem('sortStyle')
+        
         let data = {
-            sortBy: sortBy
+            sortBy: sortBy,
+            sortStyle: sortStyle
         }
-
+        
         const options = {
             method: 'POST', 
             headers: {
@@ -198,86 +252,57 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch('/sortUpdated', options)
+        await fetch(`/page/${currPage}`, options)
         .then(res => res.text())
         .then(data => {
 
-            let updated = document.getElementById('updated' + currPage)
+            let updated = document.getElementById('updated')
             if(event.target.name > 0) {
                 updated.name = -1
             } else {
                 updated.name = 1
             }
-
+  
             fillPage(data)
         })
         .catch(err => console.log(err))
         
     }
 
-    if(event.target.textContent == 'Next') {
-
-        let currTable = document.getElementById('table' + currPage);
-        currTable.style.display = 'none'
-        
-        currPage++;
-
-        localStorage.setItem('currPage', currPage);
-    
-        let newTable = document.getElementById('table' + currPage)
-        newTable.style.display = 'block'
-
-        let next = document.getElementById('next')
-        let prev = document.getElementById('prev')
-        if(currPage < totalPages) {
-            next.disabled = false;
-        } else {
-            next.disabled = true;
-        }
-        if(currPage == 1) {
-            prev.disabled = true
-        } else {
-            prev.disabled = false;
-        }
-    }
-
-    if(event.target.textContent == 'Back') {
-
-        let currTable = document.getElementById('table' + currPage);
-        currTable.style.display = 'none'
-        
-        currPage--;
-
-        localStorage.setItem('currPage', currPage);
-
-        
-    
-        let newTable = document.getElementById('table' + currPage)
-        newTable.style.display = 'block'
-
-        let next = document.getElementById('next')
-        let prev = document.getElementById('prev')
-        if(currPage < totalPages) {
-            
-            next.disabled = false;
-        } else {
-
-            next.disabled = true;
-        }
-        if(currPage == 1) {
-            
-            prev.disabled = true;
-        } else {
-
-            prev.disabled = false;
-        }
-    }
-    console.log(currPage)
 })
 
 async function load() {
+    const currPage = localStorage.getItem('currPage')
+    let sortBy = localStorage.getItem('sortBy')
+    let sortStyle = localStorage.getItem('sortStyle')
+    console.log(sortStyle)
+    console.log(sortBy)
+    let data = {
+        sortBy: sortBy,
+        sortStyle: sortStyle
+    }
+    console.log()
+    const post = {
+        method: 'POST', 
+        headers: {
+            'Content-type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
     await fetch('/all', {method: 'GET'})
     .then(res => res.text())
+    .then(val => {
+        let data = JSON.parse(val)
+        const pages = Math.ceil(data.length/3)
+        localStorage.setItem('pages', pages)
+        localStorage.setItem('limit', 3);
+        localStorage.setItem('dataLength', data.length);
+    })
+    .catch(err => console.log(err))
+    
+    await fetch(`/page/${currPage}`, post)
+    .then(res => res.text(res))
+    .catch(error => console.log(error))
     .then(val => fillPage(val))
     .catch(err => console.log(err))
 }
@@ -293,13 +318,9 @@ async function fillPage(val) {
 
     let data = JSON.parse(val)
 
-    const limit = 5
-    localStorage.setItem('limit', 5);
-    localStorage.setItem('dataLength', data.length);
+
     let num = 0
-    for(let page = 1; page <= Math.ceil(data.length/limit); page++) {
-        
-        localStorage.setItem('maxPages', page)
+        let div = document.createElement('div')
         let table = document.createElement('table')
         let trDesc = document.createElement('tr')
         let td1 = document.createElement('td')
@@ -327,8 +348,8 @@ async function fillPage(val) {
             aUpdated.setAttribute('name', '-1')
         }
 
-        aCreated.setAttribute('id', 'created'+page)
-        aUpdated.setAttribute('id', 'updated'+page)
+        aCreated.setAttribute('id', 'created')
+        aUpdated.setAttribute('id', 'updated')
 
         td1.textContent = 'Done'
         td2.textContent = 'To-Do'
@@ -341,7 +362,7 @@ async function fillPage(val) {
         trDesc.appendChild(td4)
 
         table.appendChild(trDesc)
-        table.setAttribute('id', 'table'+page)
+        table.setAttribute('id', 'table')
 
         for(let note = num; note < data.length; note++) {
             let tr = document.createElement('tr')
@@ -352,7 +373,7 @@ async function fillPage(val) {
             let tdDelete = document.createElement('td')
             let tdEdit = document.createElement('td')
             let checkbox = document.createElement('input')
-            checkbox.setAttribute('id', 'check'+num)
+            checkbox.setAttribute('id', 'check'+ (num+1))
             checkbox.setAttribute('type', 'checkbox')
 
             if(data[note].checked){
@@ -375,44 +396,18 @@ async function fillPage(val) {
             table.appendChild(tr)
             
             num++
-            if((num/limit) == page) {
-                break;
-            }
         }
-        if(page > 1) {
-            table.style.display = 'none'
-        }
-        notes.append(table)
+        div.append(table)
+        notes.append(div)
         
-    }
-    if(num > 4) {
-        let next = document.createElement('button')
-        let prev = document.createElement('button')
+        const pages = localStorage.getItem('pages')
 
-        next.setAttribute('value', '2')
-        prev.setAttribute('value', '1')
-
-        next.setAttribute('id', 'next')
-        prev.setAttribute('id', 'prev')
-
-        next.textContent = 'Next'
-        prev.textContent = 'Back'
-
-        notes.append(prev)
-        notes.append(next)
-
-        if(data.length/limit >= 1) {
-
-            let prev = document.getElementById('prev')
-            prev.disabled = true;
-        }
-
-        if(data.length/limit <= 1) {
-            let next = document.getElementById('next')
-            next.disabled = true;
-        }
-
-
-    }
+        for(let page = 1; page <= pages; page++) {
+            let a = document.createElement('a')
+            a.setAttribute('name', page)
+            a.setAttribute('class', 'pages')
+            a.textContent = `   ${page}    `
+            notes.append(a)
+        } 
 } 
 

@@ -14,7 +14,7 @@ router.post('/', functions.add)
 
 router.put('/:id', functions.update)
 
-router.patch('/:id', functions.set)
+router.patch('/:id', functions.setCheck)
 
 router.delete('/:id', functions.delete)
 
@@ -24,7 +24,7 @@ router.post('/sortCreated', functions.sortCreated)
 
 router.post('/sortUpdated', functions.sortUpdated)
 
-
+router.post('/page/:page', functions.pagination)
 
 //export {router};
 
