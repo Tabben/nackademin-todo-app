@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="public/Css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Coming tasks</h1>
 
-    <div id= add>
-        <div id='newTask'></div>
-        <button id=addNew>Add new task</button>
+    <div id='authenticated'>
+        <h1 class="auth">Coming tasks</h1>
+
+    <div>
+
+    </div>
+
+    <div id=add class="auth">
+        <div id='newTask' class="auth"></div>
+        <button id=addNew class="auth">Add new task</button>
     </div>
 
     <div id='notes'>
@@ -19,6 +26,39 @@
 
     <div id='editPage'>
 
+    </div>
+    </div>
+    
+    <div id='register'>
+        <p>Register User</p>
+        <label for="regUsername">Enter username</label>
+        <input type="text" id="regUsername" name="regUsername">
+        <label for="regPassword">Enter username</label>
+        <input type="text" id="regPassword" name="regPassword">
+        <select name="role" id="role">
+            <option value="admin">admin</option>
+            <option value="user">user</option>
+        </select>
+
+        <button id="registerUser">Register</button>
+        <div>
+            <a  name="switchL">Or login</a>
+        </div>
+        
+    </div>
+
+    <div id='login'>
+        <p>Login</p>
+        <label for="loginUsername">Enter username</label>
+        <input type="text" id="loginUsername" name="loginUsername">
+        <label for="loginPassword">Enter password</label>
+        <input type="text" id="loginPassword" name="loginPassword">
+
+        <button id="registerUser">Register</button>
+
+        <div>
+            <a name="switchR">Or register</a>
+        </div>
     </div>
 
     <script src="public/Js/main.js"></script>

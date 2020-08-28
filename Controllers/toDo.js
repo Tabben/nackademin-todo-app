@@ -1,6 +1,4 @@
-const db = require('../Model/model')
-// import {db} from '../Model/model.js' 
-
+const db = require('../Model/toDo')
 
 module.exports = {
     add: async (req, res) => {

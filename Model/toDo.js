@@ -1,12 +1,10 @@
-const database = require('nedb-promises')
+const { todoCollection } = require('./db')
 
-
-var todoCollection = database.create ({
-    filename: __dirname + '/Data/todo',
-    timestampData: true
-})
-
-todoCollection.loadDatabase();
+// var todoCollection = database.create ({
+//     filename: __dirname + '/Data/todo',
+//     timestampData: true,
+//     autoload: true
+// })
 
 module.exports = {
     add: function (title) {

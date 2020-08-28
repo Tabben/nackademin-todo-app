@@ -5,9 +5,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         localStorage.setItem('sortBy', 1)
     }
     localStorage.setItem('currPage', 1);
-    
 
-    load()
+    // load()
 })
 document.addEventListener('click', async (event) => {
 
@@ -30,7 +29,7 @@ document.addEventListener('click', async (event) => {
         
         targetGrandpa.removeChild(targetParent)
         
-        await fetch(`/${parentId}`, {method: 'DELETE'})
+        await fetch(`/todo/${parentId}`, {method: 'DELETE'})
         .then(res => res.text())
         .then(log => console.log(log))
         .catch(err => console.log(err))
@@ -39,7 +38,7 @@ document.addEventListener('click', async (event) => {
     if(target.textContent == 'Edit'){
 
 
-        fetch(`/note/${parentId}`, {method: 'GET'})
+        fetch(`/todo/note/${parentId}`, {method: 'GET'})
         .then(res => res.text())
         .then(response => {
 
@@ -86,7 +85,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data) 
         }
         
-        await fetch(`/${currId}`, put)
+        await fetch(`/todo/${currId}`, put)
         .then(res => {
             load()
         })
@@ -110,7 +109,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data) 
         }
         console.log(grandpaId)
-        await fetch(`/${grandpaId}`, patch)
+        await fetch(`/todo/${grandpaId}`, patch)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
@@ -155,7 +154,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch('/', post)
+        await fetch('/todo', post)
         .then(res => console.log(res))
         .then(data => load())
         .catch(err => console.log(err))
@@ -176,7 +175,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch(`/page/${currPage}`, post)
+        await fetch(`/todo/page/${currPage}`, post)
         .then(res => res.text())
         .then(data => {
 
@@ -215,7 +214,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch(`/page/${currPage}`, options)
+        await fetch(`/todo/page/${currPage}`, options)
         .then(res => res.text())
         .then(data => {
 
@@ -252,7 +251,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch(`/page/${currPage}`, options)
+        await fetch(`/todo/page/${currPage}`, options)
         .then(res => res.text())
         .then(data => {
 
@@ -269,14 +268,28 @@ document.addEventListener('click', async (event) => {
         
     }
 
+    if(target.name == 'switchL') {
+        document.getElementById('register').style.display = "none"
+        document.getElementById('login').style.display = "block"
+    } else if (target.name == 'switchR') {
+        document.getElementById('register').style.display = "block"
+        document.getElementById('login').style.display = "none"
+    }
+
+    if(target.id == 'registerUser') {
+        const username = document.getElementById('regUsername').value
+        const password = document.getElementById('regPassword').value
+        const role = document.getElementById('role').value
+    }
+
 })
 
 async function load() {
     const currPage = localStorage.getItem('currPage')
     let sortBy = localStorage.getItem('sortBy')
     let sortStyle = localStorage.getItem('sortStyle')
-    console.log(sortStyle)
-    console.log(sortBy)
+    console.log("sortstyle: " + sortStyle)
+    console.log("sortby: " +sortBy)
     let data = {
         sortBy: sortBy,
         sortStyle: sortStyle
@@ -289,7 +302,7 @@ async function load() {
         body: JSON.stringify(data)
     }
 
-    await fetch('/all', {method: 'GET'})
+    await fetch('/todo/all', {method: 'GET'})
     .then(res => res.text())
     .then(val => {
         let data = JSON.parse(val)
@@ -300,7 +313,7 @@ async function load() {
     })
     .catch(err => console.log(err))
     
-    await fetch(`/page/${currPage}`, post)
+    await fetch(`/todo/page/${currPage}`, post)
     .then(res => res.text(res))
     .catch(error => console.log(error))
     .then(val => fillPage(val))
@@ -406,6 +419,7 @@ async function fillPage(val) {
             let a = document.createElement('a')
             a.setAttribute('name', page)
             a.setAttribute('class', 'pages')
+            a.style.color = 'blue'
             a.textContent = `   ${page}    `
             notes.append(a)
         } 
