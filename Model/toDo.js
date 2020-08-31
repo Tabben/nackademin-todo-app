@@ -93,6 +93,20 @@ module.exports = {
                         _id: id
                     }
                 )
+                resolve('deleted')
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
+    getNote: (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const docs = todoCollection.find(
+                    {
+                        _id: id
+                    }
+                )
                 resolve(docs)
             } catch (error) {
                 reject(error)

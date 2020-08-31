@@ -2,14 +2,14 @@ const db = require('../Model/user')
 const bcrypt = require('bcryptjs')
 
 module.exports = {
-    addUser: async (req, res) => {
+    register: async (req, res) => {
         const { username, password, role } = req.body;
         bcrypt.hash(password, 10, async (error, hashedPassword) => {
             try {
                 const userExists = await db.findUser(
                     username
                 )
-                if(userExists.length == 0) {
+                if(!userExists) {
                     const user = await db.addUser(
                         username, 
                         hashedPassword,
@@ -24,5 +24,16 @@ module.exports = {
                res.json({ error: error.message });
             }
         })
-    }
+    },
+    login: async (req, res) => {
+        const { username, password } = req.body;
+        try {
+                console.log(username)
+                const user = await db.login(username, password)
+                res.json(user)
+                console.log(username)
+        } catch (error) {
+            res.json({msg: 'login failed'})
+        }   
+    },
 }

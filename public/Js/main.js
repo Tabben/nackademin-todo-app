@@ -25,9 +25,8 @@ document.addEventListener('click', async (event) => {
     let index = Array.prototype.indexOf.call(targetParent.parentNode.children, targetParent)
 
     if(target.textContent == '[X]'){
+        console.log(currentUser)
         
-        targetGrandpa.removeChild(targetParent)
-
         const remove = {
             method: 'DELETE', 
             headers: {
@@ -38,17 +37,27 @@ document.addEventListener('click', async (event) => {
         
         await fetch(`/todo/${parentId}`, remove)
         .then(res => res.text())
-        .then(log => console.log(log))
+        .then(log => {
+            console.log(log)
+            if(res)
+        })
         .catch(err => console.log(err))
+        targetGrandpa.removeChild(targetParent)
     }
     
     if(target.textContent == 'Edit'){
 
-
-        fetch(`/todo/note/${parentId}`, {method: 'GET'})
+        const get = {
+            method: 'GET', 
+            headers: {
+                'Content-type': 'application/json',
+                'token': currentUser
+            }
+        }
+        fetch(`/todo/note/${parentId}`, get)
         .then(res => res.text())
         .then(response => {
-
+            console.log(response)
             let div = document.getElementById('editPage')
             let data = JSON.parse(response)
             let title = document.createElement('input')
@@ -88,7 +97,9 @@ document.addEventListener('click', async (event) => {
         const put = {
             method: 'PUT', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data) 
         }
         
@@ -112,7 +123,9 @@ document.addEventListener('click', async (event) => {
         const patch = {
             method: 'PATCH', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data) 
         }
         console.log(grandpaId)
@@ -157,7 +170,9 @@ document.addEventListener('click', async (event) => {
         const post = {
             method: 'POST', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data)
         }
 
@@ -178,7 +193,9 @@ document.addEventListener('click', async (event) => {
         const post = {
             method: 'POST', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data)
         }
 
@@ -217,7 +234,9 @@ document.addEventListener('click', async (event) => {
         const options = {
             method: 'POST', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data)
         }
 
@@ -231,7 +250,6 @@ document.addEventListener('click', async (event) => {
             } else {
                 created.name = 1
             }
-            
  
             fillPage(data)
         })
@@ -254,7 +272,9 @@ document.addEventListener('click', async (event) => {
         const options = {
             method: 'POST', 
             headers: {
-                'Content-type': 'application/json' },
+                'Content-type': 'application/json',
+                'token': currentUser
+            },
             body: JSON.stringify(data)
         }
 
@@ -327,20 +347,19 @@ document.addEventListener('click', async (event) => {
             const post = {
                 method: 'POST', 
                 headers: {
-                    'Content-type': 'application/json' },
+                    'Content-type': 'application/json' 
+                },
                 body: JSON.stringify(data)
             }
     
-            await fetch('auth/login', post)
+            await fetch('user/login', post)
             .then(res => res.text())
             .then(data => {
-                
                 let val = JSON.parse(data)
+
                 if(val['token'] != undefined) {
                     sessionStorage.setItem('token', 'Bearer '+ val['token'])
-    
                     console.log(sessionStorage.getItem('token'))
-
                     document.getElementById('authenticated').style.display = 'block'
                     document.getElementById('login').style.display = 'none'
                     document.getElementById('register').style.display = 'none'
@@ -349,8 +368,6 @@ document.addEventListener('click', async (event) => {
                 } else {
                     console.log('Authentication went wrong')
                 }
-                
-
             })
             .catch(err => console.log(err))
         } else {
@@ -376,11 +393,19 @@ async function load() {
     const post = {
         method: 'POST', 
         headers: {
-            'Content-type': 'application/json' },
+            'Content-type': 'application/json',
+            'token': sessionStorage.getItem('token')
+        },
         body: JSON.stringify(data)
     }
-
-    await fetch('/todo/all', {method: 'GET'})
+    const get = {
+        method: 'GET', 
+        headers: {
+            'Content-type': 'application/json',
+            'token': sessionStorage.getItem('token')
+        }
+    }
+    await fetch('/todo/all', get)
     .then(res => res.text())
     .then(val => {
         let data = JSON.parse(val)

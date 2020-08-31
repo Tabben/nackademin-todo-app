@@ -75,8 +75,8 @@ module.exports = {
  
         try {
             const note = await db.delete(id)
- 
-            res.json(note).status(200)
+            console.log(note)
+            res.json({msg:'note'}).status(200)
         } catch (error) {
             console.log("error")
             res.json({error: error.message}).status(500)

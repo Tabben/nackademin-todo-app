@@ -1,1 +1,2 @@
-{"username":"nicke","password":"$2a$10$fnESB5.JkvVLODoWMXqOMu5SfPHN9YcGfALZ48G5LSDgHjwL7F4iK","role":"admin","_id":"tJPud3r2RhmDvtTA","createdAt":{"$$date":1598854051696},"updatedAt":{"$$date":1598854051696}}
+{"username":"user","password":"$2a$10$a9yw3R1FO2gDqrX/CmzvN.peNkebdCZp.QdI69Y6BjQoNtGa16PpK","role":"user","_id":"86nyhwRFUkXzdbPW","createdAt":{"$$date":1598866685138},"updatedAt":{"$$date":1598866685138}}
+{"username":"nicke","password":"$2a$10$7wS.qNQNVrENEBeVJdDbUeilhRVpeErLbQUi1gHDOzH/HnSr06xpS","role":"admin","_id":"unqD1OTap45zU8io","createdAt":{"$$date":1598866679411},"updatedAt":{"$$date":1598866679411}}
