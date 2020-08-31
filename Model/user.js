@@ -19,5 +19,21 @@ module.exports = {
                 reject(error)
             }
         })
+    },
+    findUser: (username) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                const docs = users.find(
+                    {
+                        username: username
+                    }
+                )
+                
+                resolve(docs)
+            } catch (error) {
+                reject(error)
+            }
+        })
     }
 }

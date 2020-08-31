@@ -7,20 +7,25 @@ module.exports = {
     login: async (req, res) => {
         const { username, password } = req.body;
         try {
-            const user = await db.login(username)
-            bcrypt.compare(password, user[0].password, (err, result) => {
-                if(!result) {
-                    res.json({error: "Incorrect password"})
-                } else {
-                    const token = jwt.sign(user[0], secret)
-                    res.json(
-                        {
-                            message: 'Login succeeded',
-                            token: token
-                        }
-                    )
-                }
-            })
+            const user = await db.findUser(username)
+            if(user[0]) {
+                bcrypt.compare(password, user[0].password, (err, result) => {
+                    if(!result) {
+                        res.json({error: "Incorrect password"})
+                    } else {
+                        const token = jwt.sign(user[0], secret)
+                        res.json(
+                            {
+                                message: 'Login succeeded',
+                                token: token
+                            }
+                        )
+                    }
+                })
+            } else {
+                res.send('Wrong username')
+            }
+                
         } catch (error) {
             
         }
@@ -39,7 +44,7 @@ module.exports = {
             next()
         } catch (error) {
             console.log(error)
-            res.sendStatus(401)
+            res.send(error)
         }
     },
     admin: (req, res, next) => {

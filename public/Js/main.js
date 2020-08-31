@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     }
     localStorage.setItem('currPage', 1);
 
-    // load()
 })
 document.addEventListener('click', async (event) => {
 
@@ -280,6 +279,77 @@ document.addEventListener('click', async (event) => {
         const username = document.getElementById('regUsername').value
         const password = document.getElementById('regPassword').value
         const role = document.getElementById('role').value
+
+        event.preventDefault()
+
+        if(username.length > 1 && password.length > 1) {
+            const data = {
+                username: username,
+                password: password,
+                role:role
+            }
+    
+            const post = {
+                method: 'POST', 
+                headers: {
+                    'Content-type': 'application/json' },
+                body: JSON.stringify(data)
+            }
+    
+            await fetch('user/register', post)
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+        } else {
+            alert('Enter required fields!')
+        }
+        
+    }
+
+    if(target.id == 'loginUser') {
+        const username = document.getElementById('loginUsername').value
+        const password = document.getElementById('loginPassword').value
+        event.preventDefault()
+        if(username.length > 1 && password.length > 1) {
+            const data = {
+                username: username,
+                password: password
+            }
+    
+            const post = {
+                method: 'POST', 
+                headers: {
+                    'Content-type': 'application/json' },
+                body: JSON.stringify(data)
+            }
+    
+            await fetch('auth/login', post)
+            .then(res => res.text())
+            .then(data => {
+                
+                let val = JSON.parse(data)
+                if(val['token'] != undefined) {
+                    sessionStorage.setItem('token', 'Bearer '+ val['token'])
+    
+                    console.log(sessionStorage.getItem('token'))
+
+                    document.getElementById('authenticated').style.display = 'block'
+                    document.getElementById('login').style.display = 'none'
+                    document.getElementById('register').style.display = 'none'
+
+                    load()
+                } else {
+                    console.log('Authentication went wrong')
+                }
+                
+
+            })
+            .catch(err => console.log(err))
+        } else {
+            alert('Enter required fields!')
+        }
+
+        
     }
 
 })
@@ -422,6 +492,11 @@ async function fillPage(val) {
             a.style.color = 'blue'
             a.textContent = `   ${page}    `
             notes.append(a)
-        } 
+        }
+        let log = document.createElement('div')
+        let logout = document.createElement('a')
+        logout.setAttribute('name', 'logout')
+        log.append(logout)
+        notes.append(log)
 } 
 
