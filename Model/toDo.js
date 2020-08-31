@@ -25,7 +25,6 @@ module.exports = {
             }
         })
     },
-
     getAll: () => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -40,25 +39,6 @@ module.exports = {
             }
         })
     },
-
-    getNote: (id) => {
-        let noteId = id
-        return new Promise(async (resolve, reject) => {
-            try {
-                
-                const docs = todoCollection.find(
-                    {
-                        _id: id
-                    }
-                )
-               
-                resolve(docs)
-            } catch (error) {
-                reject(error)
-            }
-        })
-    },
-
     update: (id, title, checked) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -82,7 +62,6 @@ module.exports = {
             }
         })
     },
-
     setCheck: (id, checked) => {
         
         return new Promise(async (resolve, reject) => {
@@ -106,7 +85,6 @@ module.exports = {
             }
         })
     },
-
     delete: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -121,27 +99,6 @@ module.exports = {
             }
         })
     },
-
-    sortCreated: (value) => {
-        let sortBy = value;
-        return new Promise( async (resolve, reject) => {
-            try {
-                const sorted = todoCollection.find({}).sort({createdAt: sortBy}).exec()
-                
-                resolve(sorted)
-            } catch (error) {
-                reject(error)
-            }
-        })
-        
-    },
-
-    sortUpdated: (value) => {
-        let sortBy = value;
-
-        
-    },
-
     pagination: (page, sortBy, sortStyle) => {
 
         let limit = 3;
@@ -187,7 +144,5 @@ module.exports = {
                 }
             })
         }
-        
-       
     }
 }

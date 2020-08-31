@@ -16,10 +16,10 @@ document.addEventListener('click', async (event) => {
 
     // console.log('currPage: ' + currPage)
     // console.log('totalPages: ' + totalPages)
-    
-    let targetGrandpa = event.target.parentNode.parentNode
-    let targetParent = event.target.parentNode
+    let currentUser = sessionStorage.getItem('token')
     let target = event.target
+    let targetGrandpa = target.parentNode.parentNode
+    let targetParent = target.parentNode
     let parentId = targetParent.id
     let grandpaId = targetParent.parentNode.id
     let index = Array.prototype.indexOf.call(targetParent.parentNode.children, targetParent)
@@ -27,8 +27,16 @@ document.addEventListener('click', async (event) => {
     if(target.textContent == '[X]'){
         
         targetGrandpa.removeChild(targetParent)
+
+        const remove = {
+            method: 'DELETE', 
+            headers: {
+                'Content-type': 'application/json',
+                'token': currentUser
+            }
+        }
         
-        await fetch(`/todo/${parentId}`, {method: 'DELETE'})
+        await fetch(`/todo/${parentId}`, remove)
         .then(res => res.text())
         .then(log => console.log(log))
         .catch(err => console.log(err))
