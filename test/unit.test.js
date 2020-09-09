@@ -7,7 +7,6 @@ const users = require('../Model/user')
 
 describe("This test should create a todolist then add some tasks", async () => {
 
-
     beforeEach(async function () {
         return new Promise(async (resolve) => {
             const user = 'nicke'
@@ -54,12 +53,11 @@ describe("This test should create a todolist then add some tasks", async () => {
 
         let task = await todo.add('clean house', this.test.list._id)
         let obj = {}
-        await todo.setCheck(task._id, true)
 
+        await todo.setCheck(task._id, true)
         let updatedTask = await todo.getTaskById(task._id)
 
         expect(updatedTask.checked).to.equal(true)
-
         expect(typeof(updatedTask)).to.equal(typeof(obj))
 
     })

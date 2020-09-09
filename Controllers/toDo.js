@@ -145,11 +145,10 @@ module.exports = {
         const sortBy = req.body.sortBy
         const sortStyle = req.body.sortStyle
         const page = req.params.page
-        const listId = req.body.listId
+        const listId = req.params.listId
 
         try {
             const tasks = await db.pagination(listId, page, sortBy, sortStyle)
- 
             res.json(tasks).status(200)
         } catch (error) {
            // console.log("error")

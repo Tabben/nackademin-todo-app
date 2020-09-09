@@ -194,12 +194,31 @@ module.exports = {
             }
         })
     },
+    deleteListTasks: (id) => {
+        
+        return new Promise(async (resolve, reject) => {
+            try {
+                const docs = await todoCollection.remove(
+                    {
+                        listId: id
+                    },
+                    {
+                        multi: true
+                    }
+                )
+                resolve('deleted')
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
     pagination: (listId, page, sortBy, sortStyle) => {
 
         let limit = 3;
         let skip = (page-1) * limit
 
         if(sortStyle == 'created') {
+            
             return new Promise( async (resolve, reject) => {
                 try {
                     const sorted = await todoCollection.find({
