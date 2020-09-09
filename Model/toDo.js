@@ -19,7 +19,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const task = todoCollection.insert({
+                const task = await todoCollection.insert({
                     title: title,
                     checked: false,
                     urgent: false,
@@ -47,7 +47,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoList.find({})
+                const docs = await todoList.find({})
                
                 resolve(docs)
             } catch (error) {
@@ -59,7 +59,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoList.findOne({_id: id})
+                const docs = await todoList.findOne({_id: id})
                
                 resolve(docs)
             } catch (error) {
@@ -70,7 +70,7 @@ module.exports = {
     getAllByOwnerId: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = todoList.find({ownerId: id})
+                const docs = await todoList.find({ownerId: id})
                
                 resolve(docs)
             } catch (error) {
@@ -82,7 +82,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoCollection.find({listId: id})
+                const docs = await todoCollection.find({listId: id})
                
                 resolve(docs)
             } catch (error) {
@@ -95,7 +95,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoCollection.update(
+                const docs = await todoCollection.update(
                     {
                         _id: id
                     },
@@ -115,15 +115,40 @@ module.exports = {
             }
         })
     },
+    updateList: (id, title) => {
+   
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                const docs = await todoList.update(
+                    {
+                        _id: id
+                    },
+                    {
+                        $set: 
+                        {
+                            title: title
+                        }
+                    }                 
+                    ,
+                    {}
+                )
+                
+                resolve('updated')
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
     deleteList: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const list = todoList.remove(
+                const list = await todoList.remove(
                     {
                         _id: id
                     }
                 )
-                const tasks = todoCollection.remove(
+                const tasks = await todoCollection.remove(
                     {
                         listId: id
                     }
@@ -138,7 +163,7 @@ module.exports = {
         
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = todoCollection.remove(
+                const docs = await todoCollection.remove(
                     {
                         _id: id
                     }
@@ -157,7 +182,7 @@ module.exports = {
         if(sortStyle == 'created') {
             return new Promise( async (resolve, reject) => {
                 try {
-                    const sorted = todoCollection.find({
+                    const sorted = await todoCollection.find({
                         listId: listId
                     })
                     .sort({createdAt: sortBy})
@@ -172,7 +197,7 @@ module.exports = {
         } else if (sortStyle == 'updated') {
             return new Promise( async (resolve, reject) => {
                 try {
-                   const sorted = todoCollection.find({})
+                   const sorted = await todoCollection.find({})
                     .sort({updatedAt: sortBy})
                     .skip(skip)
                     .limit(limit)
@@ -185,7 +210,7 @@ module.exports = {
         } else {
             return new Promise( async (resolve, reject) => {
                 try {
-                   const sorted = todoCollection.find({})
+                   const sorted = await todoCollection.find({})
                     .sort({updatedAt: sortBy})
                     .skip(skip)
                     .limit(limit)

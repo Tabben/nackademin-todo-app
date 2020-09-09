@@ -133,7 +133,7 @@ describe("This test should create a todolist then add some tasks", async () => {
     it("should add a task to a list", async function () {
 
         let task = await todo.add('water plants', this.test.list._id)
-
+        let listId = this.test.list._id
         chai.request(app)
         .post(`/todo/tasks/${this.test.list._id}`)
         .set("Content-Type", "application/json")
@@ -145,7 +145,23 @@ describe("This test should create a todolist then add some tasks", async () => {
 
             expect(res).to.have.status(200)
             expect(res.body.title).to.equal('title')
-            expect(res.body.listId).to.equal(this.test.list._id)
+            expect(res.body.listId).to.equal(listId)
+        })  
+    })
+
+    it("should edit a list title", async function () {
+
+        chai.request(app)
+        .patch(`/todo/list/${this.test.list._id}`)
+        .set("Content-Type", "application/json")
+        .set('token',`Bearer ${this.test.token}`)
+        .send({
+            title: 'newTitle'
+        })
+        .end((err, res) => {
+
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal('updated')
         })  
     })
 })

@@ -73,12 +73,38 @@ module.exports = {
         }
     },
 
+    updateList: async (req, res) => {
+        const id = req.params.listId
+        const title = req.body.title
+        try {
+            const list = await db.updateList(id, title)
+            res.json(list)
+        } catch (error) {
+            res.json(error)
+        }
+    },
+
     deleteTask: async (req, res) => {
         const id = req.params.taskId
  
         try {
            // console.log('1')
             const task = await db.deleteTask(id)
+           // console.log('1')
+           // console.log(task)
+            res.json(task).status(200)
+        } catch (error) {
+           // console.log("error")
+            res.json({error: error.message})
+        }
+    },
+
+    deleteList: async (req, res) => {
+        const id = req.params.listId
+ 
+        try {
+           // console.log('1')
+            const task = await db.deleteList(id)
            // console.log('1')
            // console.log(task)
             res.json(task).status(200)

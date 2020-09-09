@@ -10,6 +10,10 @@ router.post('/list', auth.user, toDo.addList)
 
 router.get('/list/:listId', auth.user, toDo.getListById)
 
+router.delete('/list/:listId', auth.admin, toDo.deleteList)
+
+router.patch('/list/:listId', auth.user, toDo.updateList)
+
 router.get('/tasks/:listId', auth.user, toDo.getTasksByList)
 
 router.post('/tasks/:listId', auth.user, toDo.addTask)
