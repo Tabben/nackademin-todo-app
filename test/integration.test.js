@@ -145,7 +145,7 @@ describe("This test should create a todolist then add some tasks", async () => {
     })
 
     it("should add several tasks to a list and sort by created, updated and paginate", async function () {
-        await todo.deleteListTasks(this.test.list._id)
+        
         
         await todo.add('1', this.test.list._id)
         await todo.add('2', this.test.list._id)
@@ -183,7 +183,7 @@ describe("This test should create a todolist then add some tasks", async () => {
         .end((err, res) => {
    
            expect(res.body.length).to.equal(3)
-           expect(res.body[0].title).to.equal('3')
+           expect(res.body[2].title).to.equal('1')
         })
 
    
