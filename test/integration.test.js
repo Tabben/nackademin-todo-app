@@ -4,7 +4,7 @@ const { request, expect } = chai
 const app = require("../app")
 
 chai.use(chaiHttp);
-chai.should()
+
 
 const todo = require('../Model/toDo')
 const users = require('../Model/user')
@@ -38,27 +38,6 @@ describe("This test should create a todolist then add some tasks", async () => {
         
         let tasks = await todo.getTasksByListId(this.test.list._id)
         expect(tasks.length).to.equal(2)
-    })
-
-    it("should authorize a user and create a list", async function () {
-        
-
-        chai.request(app)
-        .post(`/todo/list`)
-        .set("Content-Type", "application/json")
-        .set('token',`Bearer ${this.test.token}`)
-        .send({
-            'title': 'title'
-        })
-        .end((err, res) => {
-            const title = res.body.title
-     
-            expect(title).to.not.equal(null)
-            expect(title).to.not.equal(undefined)
-            expect(res).to.be.json
-            expect(res).to.have.status(200)
-            
-        })
     })
 
     it("should get a todolist", async function () {

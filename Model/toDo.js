@@ -67,6 +67,18 @@ module.exports = {
             }
         })
     },
+    getTaskById: (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                const docs = await todoCollection.findOne({_id: id})
+               
+                resolve(docs)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
     getAllByOwnerId: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -148,11 +160,18 @@ module.exports = {
                         _id: id
                     }
                 )
+                if(list == undefined) {
+                    resolve('undefined')
+                }
                 const tasks = await todoCollection.remove(
                     {
                         listId: id
+                    },
+                    {
+                        multi: true
                     }
                 )
+                
                 resolve('deleted')
             } catch (error) {
                 reject(error)
@@ -167,6 +186,7 @@ module.exports = {
                     {
                         _id: id
                     }
+                    
                 )
                 resolve('deleted')
             } catch (error) {
