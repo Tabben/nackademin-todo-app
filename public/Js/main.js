@@ -25,7 +25,7 @@ document.addEventListener('click', async (event) => {
     let index = Array.prototype.indexOf.call(targetParent.parentNode.children, targetParent)
 
     if(target.textContent == '[X]'){
-        console.log(currentUser)
+        
         
         const remove = {
             method: 'DELETE', 
@@ -39,10 +39,17 @@ document.addEventListener('click', async (event) => {
         .then(res => res.text())
         .then(log => {
             console.log(log)
-            if(res)
+            if(log != 'Unauthorized') {
+                let data = JSON.parse(log)
+                
+                targetGrandpa.removeChild(targetParent)
+                
+            }
+            
+            
         })
         .catch(err => console.log(err))
-        targetGrandpa.removeChild(targetParent)
+        
     }
     
     if(target.textContent == 'Edit'){

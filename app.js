@@ -19,7 +19,4 @@ app.get("/", (req, res) => {
     res.redirect("/todo")
 })
 
-app.listen(port, () => {
-    console.log(`Server started at port ${port}`)
-})
-
+module.exports = app

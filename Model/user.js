@@ -4,18 +4,21 @@ const jwt = require('jsonwebtoken');
 const secret = "secret";
 
 module.exports = {
-    addUser: (username, password, role) => {
+    addUser: async (username, password, role) => {
         return new Promise(async (resolve, reject) => {
             try {
+
                 bcrypt.hash(password, 10, async (error, hashedPassword) => {
                     try {
-                        const docs = users.insert(
+
+                        users.insert(
                             {
                                 username: username,
                                 password: hashedPassword,
                                 role: role
                             }
                         )
+                        // console.log('user added')
                         resolve('User was added')
                     } catch (error) {
                         reject(error)
@@ -28,16 +31,18 @@ module.exports = {
             }
         })
     },
-    findUser: (username) => {
+    findUser: async (username) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = users.findOne(
+                const docs = await users.findOne(
                     {
                         username: username
                     }
                 )
+                // console.log('user search completed')
                 resolve(docs)
             } catch (error) {
+                // console.log(2)
                 reject(error)
             }
         })
@@ -47,20 +52,20 @@ module.exports = {
             try {
 
                 const user = await module.exports.findUser(username)
-
+ 
                 if(user) {
-                    console.log(user)
                     
                     if(bcrypt.compareSync(password, user.password)) {
-                        reject({msg: 'Login failed'})
-                        console.log(username + 'failed')
-                    } else {
                         const token = jwt.sign(user, secret)
-                        console.log(username + 'scucess')
+                        // console.log('login succeeded')
                         resolve({
                             token: token,
                             msg: 'Login suceeded'
                         })
+                        
+                    } else {
+                        reject({msg: 'Login failed'})
+                        // console.log('login failed')
                     }
                    
                 } else {

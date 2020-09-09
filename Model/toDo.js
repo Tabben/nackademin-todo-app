@@ -1,23 +1,53 @@
-const { todoCollection } = require('./db')
+const { todoCollection, todoList } = require('./db')
 
-// var todoCollection = database.create ({
-//     filename: __dirname + '/Data/todo',
-//     timestampData: true,
-//     autoload: true
-// })
 
 module.exports = {
-    add: function (title) {
+
+    create: (title, ownerId) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const list = await todoList.insert({title: title, ownerId: ownerId})
+
+                resolve(list)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
+    add: (title, listId) => {
        
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoCollection.insert(
-                    {
-                        title: title,
-                        checked: false
+                const task = todoCollection.insert({
+                    title: title,
+                    checked: false,
+                    urgent: false,
+                    listId: listId
+                })
+                const list = todoList.update(
+                {
+                    _id: listId,
+                },
+                {
+                    $push: {
+                        
                     }
+                }
                 )
+                // console.log(1)
+                resolve(task)
+            } catch (error) {
+                // console.log(2)
+                reject(error)
+            }
+        })
+    },
+    getAllLists: () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                const docs = todoList.find({})
                
                 resolve(docs)
             } catch (error) {
@@ -25,13 +55,11 @@ module.exports = {
             }
         })
     },
-    getAll: () => {
+    getListById: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoCollection.find(
-                    {}
-                )
+                const docs = todoList.findOne({_id: id})
                
                 resolve(docs)
             } catch (error) {
@@ -39,22 +67,22 @@ module.exports = {
             }
         })
     },
-    update: (id, title, checked) => {
+    getAllByOwnerId: (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const docs = todoList.find({ownerId: id})
+               
+                resolve(docs)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
+    getTasksByListId: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = todoCollection.update(
-                    {
-                        _id: id
-                    },
-                    {
-                        $set: {
-                            title: title,
-                            checked: checked
-                        }
-                    },
-                    {}
-                )
+                const docs = todoCollection.find({listId: id})
                
                 resolve(docs)
             } catch (error) {
@@ -63,7 +91,7 @@ module.exports = {
         })
     },
     setCheck: (id, checked) => {
-        
+   
         return new Promise(async (resolve, reject) => {
             try {
                 
@@ -72,20 +100,42 @@ module.exports = {
                         _id: id
                     },
                     {
-                        $set: {
+                        $set: 
+                        {
                             checked: checked
                         }
-                    },
+                    }                 
+                    ,
                     {}
                 )
-               
-                resolve(docs)
+                
+                resolve('updated')
             } catch (error) {
                 reject(error)
             }
         })
     },
-    delete: (id) => {
+    deleteList: (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const list = todoList.remove(
+                    {
+                        _id: id
+                    }
+                )
+                const tasks = todoCollection.remove(
+                    {
+                        listId: id
+                    }
+                )
+                resolve('deleted')
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
+    deleteTask: (id) => {
+        
         return new Promise(async (resolve, reject) => {
             try {
                 const docs = todoCollection.remove(
@@ -99,21 +149,7 @@ module.exports = {
             }
         })
     },
-    getNote: (id) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const docs = todoCollection.find(
-                    {
-                        _id: id
-                    }
-                )
-                resolve(docs)
-            } catch (error) {
-                reject(error)
-            }
-        })
-    },
-    pagination: (page, sortBy, sortStyle) => {
+    pagination: (listId, page, sortBy, sortStyle) => {
 
         let limit = 3;
         let skip = (page-1) * limit
@@ -121,7 +157,9 @@ module.exports = {
         if(sortStyle == 'created') {
             return new Promise( async (resolve, reject) => {
                 try {
-                   const sorted = todoCollection.find({})
+                    const sorted = todoCollection.find({
+                        listId: listId
+                    })
                     .sort({createdAt: sortBy})
                     .skip(skip)
                     .limit(limit)

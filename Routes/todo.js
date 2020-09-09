@@ -4,21 +4,23 @@ const auth = require('../Middlewares/auth')
 
 const toDo = require('../Controllers/toDo')
 
-router.get('/all', auth.user, toDo.getAll)
+// router.get('/', auth.user, toDo.getAll)
 
-router.post('/', auth.user, toDo.add)
+router.post('/list', auth.user, toDo.addList)
 
-router.put('/:id', auth.user, toDo.update)
+router.get('/list/:listId', auth.user, toDo.getListById)
 
-router.get('/note/:id', auth.user, toDo.getNote)
+router.get('/tasks/:listId', auth.user, toDo.getTasksByList)
 
-router.patch('/:id', auth.user, toDo.setCheck)
+router.post('/tasks/:listId', auth.user, toDo.addTask)
 
-router.delete('/:id', auth.admin, auth.authorizedUser, toDo.delete)
+router.patch('/tasks/:taskId', auth.user, toDo.setCheck)
 
-router.get('/', toDo.get)
+router.delete('/tasks/:taskId', auth.admin, toDo.deleteTask)
 
-router.post('/page/:page', toDo.pagination)
+// router.get('/', toDo.get)
+
+// router.post('/page/:page', toDo.pagination)
 
 //export {router};
 

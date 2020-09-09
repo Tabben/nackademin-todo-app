@@ -28,10 +28,10 @@ module.exports = {
     login: async (req, res) => {
         const { username, password } = req.body;
         try {
-                console.log(username)
+              
                 const user = await db.login(username, password)
                 res.json(user)
-                console.log(username)
+
         } catch (error) {
             res.json({msg: 'login failed'})
         }   

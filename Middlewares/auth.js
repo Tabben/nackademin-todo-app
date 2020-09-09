@@ -31,7 +31,7 @@ module.exports = {
 
         try {
             const payload = jwt.verify(token, secret)
-            console.log(payload)
+     
             if (payload.role != 'admin') {
                 return res.sendStatus(401)
             }

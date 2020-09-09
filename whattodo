@@ -1,0 +1,8 @@
+alla användare ska kunna skapa todolists som innehåller tasks (todo's), andra användare kan se (read) andras todolists, men inte insert, edit eller delete.
+
+tasks läggs till på todolists genom _id
+
+en tasklist på frontend ska vara en table
+
+
+todoCollection.__original.persistence.compactDatafile();

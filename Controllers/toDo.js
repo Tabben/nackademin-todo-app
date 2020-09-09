@@ -1,124 +1,133 @@
 const db = require('../Model/toDo')
 
 module.exports = {
-    add: async (req, res) => {
+    addList: async (req, res) => {
         let title = req.body.title
+        let ownerId = req.user._id
         try {
-            const note = await db.add(title)
+            const task = await db.create(title, ownerId)
 
-            res.json(note).status(200)
+            res.json(task).status(200)
         } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+           // console.log("error")
+            res.json({error: error.message})
         }
         
     },
 
-    getAll: async (req, res) => {
+    addTask: async (req, res) => {
+        let title = req.body.title
+        let listId = req.params.listId
         try {
-            const note = await db.getAll()
- 
-            res.json(note).status(200)
+            const task = await db.add(title, listId)
+
+            res.json(task).status(200)
         } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+           // console.log("error")
+            res.json({error: error.message})
+        }
+        
+    },
+
+    getTasksByList: async (req, res) => {
+        let listId = req.params.listId
+        try {
+            const task = await db.getTasksByListId(listId)
+ 
+            res.json(task).status(200)
+        } catch (error) {
+           // console.log("error")
+            res.json({error: error.message})
         }
     },
 
-    getNote: async (req, res) => {
-        const id = req.params.id
+
+    getListById: async (req, res) => {
+        let listId = req.params.listId
+
         try {
-            const note = await db.getNote(id)
- 
-            res.json(note).status(200)
-        } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+            const list = await db.getListById(listId)
+
+            res.json(list)
+        } catch(error) {
+            res.send(error)
         }
     },
 
     get: (req, res) => {
-
         res.sendFile('index.html', { root: __dirname + '/../public/views' })
-    },
-
-    update: async (req, res) => {
-        const id = req.params.id
-        const title = req.body.title
-        const checked = req.body.checked
-        try {
-            const note = await db.update(id, title, checked)
- 
-            res.json(note).status(200)
-        } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
-        }
     },
 
     setCheck: async (req, res) => {
    
-        const id = req.params.id
+        const id = req.params.taskId
         const checked = req.body.checked
-        try {
-            const note = await db.setCheck(id, checked)
  
-            res.json(note).status(200)
+        try {
+            const task = await db.setCheck(id, checked)
+ 
+            res.json(task).status(200)
         } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+           // console.log("error")
+            res.json({error: error.message})
         }
     },
 
-    delete: async (req, res) => {
-        const id = req.params.id
+    deleteTask: async (req, res) => {
+        const id = req.params.taskId
  
         try {
-            const note = await db.delete(id)
-            console.log(note)
-            res.json({msg:'note'}).status(200)
+           // console.log('1')
+            const task = await db.deleteTask(id)
+           // console.log('1')
+           // console.log(task)
+            res.json(task).status(200)
         } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+           // console.log("error")
+            res.json({error: error.message})
         }
     },
 
-    sortCreated: async (req, res) => {
-        let sortBy = req.body.sortBy;
+    // PAGINATION HANDLES EVERYTHING NOW
+    // sortCreated: async (req, res) => {
+    //     let sortBy = req.body.sortBy;
 
-        try {
-            const notes = await db.sortCreated(sortBy)
+    //     try {
+    //         const tasks = await db.sortCreated(sortBy)
  
-            res.json(notes).status(200)
-        } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
-        }
-    },
+    //         res.json(tasks).status(200)
+    //     } catch (error) {
+    //        // console.log("error")
+    //         res.json({error: error.message})
+    //     }
+    // },
 
-    sortUpdated: async (req, res) => {
-        let sortBy = req.body.sortBy;
+    // sortUpdated: async (req, res) => {
+    //     let sortBy = req.body.sortBy;
 
-        try {
-            const notes = await db.sortCreated(sortBy)
+    //     try {
+    //         const tasks = await db.sortCreated(sortBy)
  
-            res.json(notes).status(200)
-        } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
-        }
-    },
+    //         res.json(tasks).status(200)
+    //     } catch (error) {
+    //        // console.log("error")
+    //         res.json({error: error.message})
+    //     }
+    // },
 
     pagination: async (req, res) => {
-        let sortBy = req.body.sortBy;
+        const sortBy = req.body.sortBy
+        const sortStyle = req.body.sortStyle
         const page = req.params.page
+        const listId = req.body.listId
+
         try {
-            const notes = await db.pagination(page, sortBy, )
+            const tasks = await db.pagination(listId, page, sortBy, sortStyle)
  
-            res.json(notes).status(200)
+            res.json(tasks).status(200)
         } catch (error) {
-            console.log("error")
-            res.json({error: error.message}).status(500)
+           // console.log("error")
+            res.json({error: error.message})
         }
     }
 }
