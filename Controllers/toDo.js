@@ -73,6 +73,21 @@ module.exports = {
         }
     },
 
+    setUrgent: async (req, res) => {
+   
+        const id = req.params.taskId
+        const urgent = req.body.urgent
+ 
+        try {
+            const task = await db.setUrgent(id, urgent)
+ 
+            res.json(task).status(200)
+        } catch (error) {
+           // console.log("error")
+            res.json({error: error.message})
+        }
+    },
+
     updateList: async (req, res) => {
         const id = req.params.listId
         const title = req.body.title

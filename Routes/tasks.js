@@ -10,7 +10,9 @@ router.get('/:listId', auth.user, toDo.getTasksByList)
 
 router.post('/:listId', auth.user, toDo.addTask)
 
-router.patch('/:taskId', auth.user, toDo.setCheck)
+router.patch('/check/:taskId', auth.user, toDo.setCheck)
+
+router.patch('/urgent/:taskId', auth.user, toDo.setUrgent)
 
 router.delete('/:taskId', auth.admin, toDo.deleteTask)
 

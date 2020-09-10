@@ -118,6 +118,31 @@ module.exports = {
             }
         })
     },
+    setUrgent: (id, urgent) => {
+   
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                const docs = await todoCollection.update(
+                    {
+                        _id: id
+                    },
+                    {
+                        $set: 
+                        {
+                            urgent: urgent
+                        }
+                    }                 
+                    ,
+                    {}
+                )
+                
+                resolve('updated')
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
     updateList: (id, title) => {
    
         return new Promise(async (resolve, reject) => {

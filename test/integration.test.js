@@ -95,11 +95,29 @@ describe("This test should create a todolist then add some tasks", async () => {
         let task = await todo.add('water plants', this.test.list._id)
 
         chai.request(app)
-        .patch(`/tasks/${task._id}`)
+        .patch(`/tasks/check/${task._id}`)
         .set("Content-Type", "application/json")
         .set('token',`Bearer ${this.test.token}`)
         .send({
             checked: true
+        })
+        .end((err, res) => {
+
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal('updated')
+        })  
+    })
+
+    it("should set a task as urgent (true)", async function () {
+
+        let task = await todo.add('water plants', this.test.list._id)
+
+        chai.request(app)
+        .patch(`/tasks/urgent/${task._id}`)
+        .set("Content-Type", "application/json")
+        .set('token',`Bearer ${this.test.token}`)
+        .send({
+            urgent: true
         })
         .end((err, res) => {
 

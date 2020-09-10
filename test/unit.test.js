@@ -74,4 +74,14 @@ describe("This test should create a todolist then add some tasks", async () => {
         expect(this.test.list._id).to.equal(task1.listId && task2.listId)
         expect(this.test.user._id).to.equal(this.test.list.ownerId && anotherList.ownerId)
     })
+
+    it("should mark a task as urgent", async function () {
+        let task = await todo.add('Feed the dog', this.test.list._id)
+
+        await todo.setUrgent(task._id, true)
+        let urgentTask = await todo.getTaskById(task._id)
+        
+        expect(urgentTask.urgent).to.equal(true)
+
+    })
 })
