@@ -17,7 +17,8 @@ describe("This test should create a todolist then add some tasks", async () => {
             const user = 'nicke'
             const password = 'nickechai'
             const role = 'admin'
-            this.currentTest.user =  await users.addUser(user, password, role) 
+
+            this.currentTest.user = await users.addUser(user, password, role)
 
             setTimeout(async () => {
                 this.currentTest.token = (await users.login('nicke', 'nickechai')).token
@@ -43,7 +44,6 @@ describe("This test should create a todolist then add some tasks", async () => {
     it("should get a todolist", async function () {
 
         let list = JSON.stringify(this.test.list)
-
         chai.request(app)
         .get(`/list/${this.test.list._id}`)
         .set("Content-Type", "application/json")
@@ -110,7 +110,6 @@ describe("This test should create a todolist then add some tasks", async () => {
 
     it("should add a task to a list", async function () {
 
-      
         let listId = this.test.list._id
         chai.request(app)
         .post(`/tasks/${this.test.list._id}`)

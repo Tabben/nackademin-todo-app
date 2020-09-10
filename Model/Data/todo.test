@@ -1,48 +1,60 @@
-{"title":"6","checked":false,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"7WqUgwYJXOuYAg6R","createdAt":{"$$date":1599666638586},"updatedAt":{"$$date":1599666638586}}
-{"title":"clean house","checked":false,"urgent":false,"listId":"2EOV5WPeBpKQgJid","_id":"OVyTu8PIdaxH4gmh","createdAt":{"$$date":1599666634485},"updatedAt":{"$$date":1599666634485}}
-{"title":"2","checked":false,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"QQ2ojS7viKCxkidO","createdAt":{"$$date":1599666638566},"updatedAt":{"$$date":1599666638566}}
-{"title":"water plants","checked":false,"urgent":false,"listId":"64wwnBOrV2kDtEOc","_id":"VuKYtLxrioTlSU1m","createdAt":{"$$date":1599666639183},"updatedAt":{"$$date":1599666639183}}
-{"title":"water plants","checked":true,"urgent":false,"listId":"bILRo7j1tiMxMxH6","_id":"Vzqehy2ApoKmUVAJ","createdAt":{"$$date":1599666636812},"updatedAt":{"$$date":1599666636896}}
-{"title":"1","checked":false,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"bx6GTqSfChyQCIcz","createdAt":{"$$date":1599666638562},"updatedAt":{"$$date":1599666638562}}
-{"title":"3","checked":true,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"e1T1G0MPYoapJkWw","createdAt":{"$$date":1599666638571},"updatedAt":{"$$date":1599666638591}}
-{"title":"5","checked":false,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"ekf3u5uy9J1VzBCt","createdAt":{"$$date":1599666638581},"updatedAt":{"$$date":1599666638581}}
-{"title":"4","checked":false,"urgent":false,"listId":"XPoH9NEIEXfigNtG","_id":"g3TauIi4qCNwjHAr","createdAt":{"$$date":1599666638576},"updatedAt":{"$$date":1599666638576}}
-{"title":"clean house1","checked":false,"urgent":false,"listId":"VosVEpbEcDhbxg9S","_id":"h6OjOv8tDJE1lcRl","createdAt":{"$$date":1599666635648},"updatedAt":{"$$date":1599666635648}}
-{"title":"clean house","checked":false,"urgent":false,"listId":"64wwnBOrV2kDtEOc","_id":"iNNxHzNvBz84GdT6","createdAt":{"$$date":1599666639179},"updatedAt":{"$$date":1599666639179}}
-{"title":"clean house","checked":true,"urgent":false,"listId":"YE6IrdWOIHqGLc2U","_id":"qecLX0BPn9ZZfsYe","createdAt":{"$$date":1599666640356},"updatedAt":{"$$date":1599666640361}}
-{"title":"title","checked":false,"urgent":false,"listId":"mG2uaytP2waHat8w","_id":"v8nR33lii4GBNb5s","createdAt":{"$$date":1599666637404},"updatedAt":{"$$date":1599666637404}}
-{"$$deleted":true,"_id":"7WqUgwYJXOuYAg6R"}
-{"$$deleted":true,"_id":"OVyTu8PIdaxH4gmh"}
-{"$$deleted":true,"_id":"QQ2ojS7viKCxkidO"}
-{"$$deleted":true,"_id":"VuKYtLxrioTlSU1m"}
-{"$$deleted":true,"_id":"Vzqehy2ApoKmUVAJ"}
-{"$$deleted":true,"_id":"bx6GTqSfChyQCIcz"}
-{"$$deleted":true,"_id":"e1T1G0MPYoapJkWw"}
-{"$$deleted":true,"_id":"ekf3u5uy9J1VzBCt"}
-{"$$deleted":true,"_id":"g3TauIi4qCNwjHAr"}
-{"$$deleted":true,"_id":"h6OjOv8tDJE1lcRl"}
-{"$$deleted":true,"_id":"iNNxHzNvBz84GdT6"}
-{"$$deleted":true,"_id":"qecLX0BPn9ZZfsYe"}
-{"$$deleted":true,"_id":"v8nR33lii4GBNb5s"}
-{"title":"clean house","checked":false,"urgent":false,"listId":"1zxA1uV9MCq1CXaJ","_id":"hrm0EMs9rfXbiA4a","createdAt":{"$$date":1599666657933},"updatedAt":{"$$date":1599666657933}}
-{"title":"clean house1","checked":false,"urgent":false,"listId":"R8hypC16qNVp2e3x","_id":"ObXPzfEEGrcNu4IP","createdAt":{"$$date":1599666659095},"updatedAt":{"$$date":1599666659095}}
-{"title":"water plants2","checked":false,"urgent":false,"listId":"l6Q1dARBs9XYULWl","_id":"b44eufAIxO7FC3ql","createdAt":{"$$date":1599666659675},"updatedAt":{"$$date":1599666659675}}
-{"$$deleted":true,"_id":"b44eufAIxO7FC3ql"}
-{"title":"water plants","checked":false,"urgent":false,"listId":"MVTwjjwq3ZvtMbZj","_id":"aMkkKmDpbMRoaQl7","createdAt":{"$$date":1599666660254},"updatedAt":{"$$date":1599666660254}}
-{"title":"water plants","checked":true,"urgent":false,"listId":"MVTwjjwq3ZvtMbZj","_id":"aMkkKmDpbMRoaQl7","createdAt":{"$$date":1599666660254},"updatedAt":{"$$date":1599666660339}}
-{"title":"title","checked":false,"urgent":false,"listId":"aBLqXUlIsDLzBdCA","_id":"PzdiGeVGeNBzljZy","createdAt":{"$$date":1599666660848},"updatedAt":{"$$date":1599666660848}}
-{"title":"1","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"cZlTNkRjZYo2IH1a","createdAt":{"$$date":1599666661995},"updatedAt":{"$$date":1599666661995}}
-{"title":"2","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"bGYQUGiL4mqKFu7z","createdAt":{"$$date":1599666661999},"updatedAt":{"$$date":1599666661999}}
-{"title":"3","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"nut6GzHBSwHPCdTR","createdAt":{"$$date":1599666662005},"updatedAt":{"$$date":1599666662005}}
-{"title":"4","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"7oVtwLydBqc6MeR6","createdAt":{"$$date":1599666662010},"updatedAt":{"$$date":1599666662010}}
-{"title":"5","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"jqcBw1jISt9V3N7K","createdAt":{"$$date":1599666662015},"updatedAt":{"$$date":1599666662015}}
-{"title":"6","checked":false,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"oTN6nY86ziwLYwrP","createdAt":{"$$date":1599666662020},"updatedAt":{"$$date":1599666662020}}
-{"title":"3","checked":true,"urgent":false,"listId":"Xk3ySdgSD1fL69qT","_id":"nut6GzHBSwHPCdTR","createdAt":{"$$date":1599666662005},"updatedAt":{"$$date":1599666662025}}
-{"title":"clean house","checked":false,"urgent":false,"listId":"g8PfA8P9ukBEJU88","_id":"wqkzEstTampVJdNC","createdAt":{"$$date":1599666662614},"updatedAt":{"$$date":1599666662614}}
-{"title":"water plants","checked":false,"urgent":false,"listId":"g8PfA8P9ukBEJU88","_id":"NLYyK8ePG5uBp66N","createdAt":{"$$date":1599666662619},"updatedAt":{"$$date":1599666662619}}
-{"title":"clean house","checked":false,"urgent":false,"listId":"dxl4K2Y3zHmAnCRo","_id":"cFTXucIsw5WKveHh","createdAt":{"$$date":1599666663197},"updatedAt":{"$$date":1599666663197}}
-{"title":"water plants","checked":false,"urgent":false,"listId":"dxl4K2Y3zHmAnCRo","_id":"XTvSakhN7nUoqPAi","createdAt":{"$$date":1599666663202},"updatedAt":{"$$date":1599666663202}}
-{"$$deleted":true,"_id":"XTvSakhN7nUoqPAi"}
-{"$$deleted":true,"_id":"cFTXucIsw5WKveHh"}
-{"title":"clean house","checked":false,"urgent":false,"listId":"7dGMae2bPtJwG3NI","_id":"8TlREZcTBAic7frH","createdAt":{"$$date":1599666663792},"updatedAt":{"$$date":1599666663792}}
-{"title":"clean house","checked":true,"urgent":false,"listId":"7dGMae2bPtJwG3NI","_id":"8TlREZcTBAic7frH","createdAt":{"$$date":1599666663792},"updatedAt":{"$$date":1599666663797}}
+{"title":"tomatoes","checked":false,"urgent":false,"listId":"AtjTznchT73h9WQc","_id":"2pZTWXuuov5lwiqs","createdAt":{"$$date":1599713076767},"updatedAt":{"$$date":1599713076767}}
+{"title":"4","checked":false,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"3zjNI9ml2BU1lp3X","createdAt":{"$$date":1599713074638},"updatedAt":{"$$date":1599713074638}}
+{"title":"5","checked":false,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"9ZV1499siJgkEdHh","createdAt":{"$$date":1599713074643},"updatedAt":{"$$date":1599713074643}}
+{"title":"clean house","checked":false,"urgent":false,"listId":"wOPj06TMZhrOB6w6","_id":"BO7Az1PrCDYjcy4N","createdAt":{"$$date":1599713075176},"updatedAt":{"$$date":1599713075176}}
+{"title":"clean house","checked":false,"urgent":false,"listId":"lsPca83PCcgbyDsg","_id":"POINChP3l10yPgPq","createdAt":{"$$date":1599713070536},"updatedAt":{"$$date":1599713070536}}
+{"title":"clean house1","checked":false,"urgent":false,"listId":"6FwO4dSbu8Rsx22t","_id":"QNIyK1mx1Z10hmqH","createdAt":{"$$date":1599713071708},"updatedAt":{"$$date":1599713071708}}
+{"title":"3","checked":true,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"RErOdQETprslyBtL","createdAt":{"$$date":1599713074634},"updatedAt":{"$$date":1599713074651}}
+{"title":"6","checked":false,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"TCpLEWaeKrq0uh2t","createdAt":{"$$date":1599713074647},"updatedAt":{"$$date":1599713074647}}
+{"title":"water plants","checked":true,"urgent":false,"listId":"7DXNJN9dhVlv98Tv","_id":"XB3gW2v8kif8KvOn","createdAt":{"$$date":1599713072876},"updatedAt":{"$$date":1599713072961}}
+{"title":"2","checked":false,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"ZLHw4nY2Ab4M8MpA","createdAt":{"$$date":1599713074630},"updatedAt":{"$$date":1599713074630}}
+{"title":"patatas","checked":false,"urgent":false,"listId":"AtjTznchT73h9WQc","_id":"gBACcp6IpcQhYTKR","createdAt":{"$$date":1599713076763},"updatedAt":{"$$date":1599713076763}}
+{"title":"title","checked":false,"urgent":false,"listId":"sWQBGX6lY2ixULcF","_id":"hXH86kp1zVQJJZxQ","createdAt":{"$$date":1599713073470},"updatedAt":{"$$date":1599713073470}}
+{"title":"water plants","checked":false,"urgent":false,"listId":"wOPj06TMZhrOB6w6","_id":"lVrv3WYnGNxWw9in","createdAt":{"$$date":1599713075180},"updatedAt":{"$$date":1599713075180}}
+{"title":"Water the plants","checked":false,"urgent":false,"listId":"f1jsn20mFRQkAw5a","_id":"mEYa0nCPr0qSjl9O","createdAt":{"$$date":1599713076758},"updatedAt":{"$$date":1599713076758}}
+{"title":"dishes","checked":false,"urgent":false,"listId":"f1jsn20mFRQkAw5a","_id":"oZh9KjGfFjHFg11a","createdAt":{"$$date":1599713076754},"updatedAt":{"$$date":1599713076754}}
+{"title":"clean house","checked":true,"urgent":false,"listId":"UNht6L4MmSXQ3ImL","_id":"s1AmCylQ4iomDHkB","createdAt":{"$$date":1599713076227},"updatedAt":{"$$date":1599713076231}}
+{"title":"1","checked":false,"urgent":false,"listId":"MXkFi3bifbfZm473","_id":"tHrd8gh3XmTPzIlK","createdAt":{"$$date":1599713074626},"updatedAt":{"$$date":1599713074626}}
+{"$$deleted":true,"_id":"2pZTWXuuov5lwiqs"}
+{"$$deleted":true,"_id":"3zjNI9ml2BU1lp3X"}
+{"$$deleted":true,"_id":"9ZV1499siJgkEdHh"}
+{"$$deleted":true,"_id":"BO7Az1PrCDYjcy4N"}
+{"$$deleted":true,"_id":"POINChP3l10yPgPq"}
+{"$$deleted":true,"_id":"QNIyK1mx1Z10hmqH"}
+{"$$deleted":true,"_id":"RErOdQETprslyBtL"}
+{"$$deleted":true,"_id":"TCpLEWaeKrq0uh2t"}
+{"$$deleted":true,"_id":"XB3gW2v8kif8KvOn"}
+{"$$deleted":true,"_id":"ZLHw4nY2Ab4M8MpA"}
+{"$$deleted":true,"_id":"gBACcp6IpcQhYTKR"}
+{"$$deleted":true,"_id":"hXH86kp1zVQJJZxQ"}
+{"$$deleted":true,"_id":"lVrv3WYnGNxWw9in"}
+{"$$deleted":true,"_id":"mEYa0nCPr0qSjl9O"}
+{"$$deleted":true,"_id":"oZh9KjGfFjHFg11a"}
+{"$$deleted":true,"_id":"s1AmCylQ4iomDHkB"}
+{"$$deleted":true,"_id":"tHrd8gh3XmTPzIlK"}
+{"title":"clean house","checked":false,"urgent":false,"listId":"nH35wStlsNsLkmCc","_id":"3u3kWun3BKGCoTMH","createdAt":{"$$date":1599713108264},"updatedAt":{"$$date":1599713108264}}
+{"title":"clean house1","checked":false,"urgent":false,"listId":"GJpmAIfhUxVYCeRW","_id":"iqtvkALt2J7VFce0","createdAt":{"$$date":1599713109434},"updatedAt":{"$$date":1599713109434}}
+{"title":"water plants2","checked":false,"urgent":false,"listId":"2tLzyrFvf7YmWiY6","_id":"KOMYebETZH4cWQ2s","createdAt":{"$$date":1599713110018},"updatedAt":{"$$date":1599713110018}}
+{"$$deleted":true,"_id":"KOMYebETZH4cWQ2s"}
+{"title":"water plants","checked":false,"urgent":false,"listId":"mQAB2nW31xl0VJqz","_id":"wD3WIYDcU5AL7vmN","createdAt":{"$$date":1599713110600},"updatedAt":{"$$date":1599713110600}}
+{"title":"water plants","checked":true,"urgent":false,"listId":"mQAB2nW31xl0VJqz","_id":"wD3WIYDcU5AL7vmN","createdAt":{"$$date":1599713110600},"updatedAt":{"$$date":1599713110684}}
+{"title":"title","checked":false,"urgent":false,"listId":"8bvSQjm5YYxk5XYN","_id":"qxtQAn4cmzkkelgI","createdAt":{"$$date":1599713111201},"updatedAt":{"$$date":1599713111201}}
+{"title":"1","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"CNc4X8qOk6sJdVqA","createdAt":{"$$date":1599713112350},"updatedAt":{"$$date":1599713112350}}
+{"title":"2","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"xDNff3KaFYJyfbWI","createdAt":{"$$date":1599713112354},"updatedAt":{"$$date":1599713112354}}
+{"title":"3","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"yhuR075ii1E5Gc60","createdAt":{"$$date":1599713112358},"updatedAt":{"$$date":1599713112358}}
+{"title":"4","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"d36oV0LO7zIrAL1u","createdAt":{"$$date":1599713112363},"updatedAt":{"$$date":1599713112363}}
+{"title":"5","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"RLUO6GTxur7Hyk7u","createdAt":{"$$date":1599713112367},"updatedAt":{"$$date":1599713112367}}
+{"title":"6","checked":false,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"qmxKdsoCCJ4K6b0r","createdAt":{"$$date":1599713112371},"updatedAt":{"$$date":1599713112371}}
+{"title":"3","checked":true,"urgent":false,"listId":"VRNexTJ7Gz49WFsW","_id":"yhuR075ii1E5Gc60","createdAt":{"$$date":1599713112358},"updatedAt":{"$$date":1599713112375}}
+{"title":"clean house","checked":false,"urgent":false,"listId":"pE8a73U9CqEQIuDy","_id":"X7pFjUuzxNweUCaN","createdAt":{"$$date":1599713112905},"updatedAt":{"$$date":1599713112905}}
+{"title":"water plants","checked":false,"urgent":false,"listId":"pE8a73U9CqEQIuDy","_id":"Dmo4CS5PdRouTvKz","createdAt":{"$$date":1599713112914},"updatedAt":{"$$date":1599713112914}}
+{"title":"clean house","checked":false,"urgent":false,"listId":"6B32e6ioSEDvoN5J","_id":"znrpKoaoj4RgfonG","createdAt":{"$$date":1599713113433},"updatedAt":{"$$date":1599713113433}}
+{"title":"water plants","checked":false,"urgent":false,"listId":"6B32e6ioSEDvoN5J","_id":"qWXFQzlTa8XhsvG4","createdAt":{"$$date":1599713113441},"updatedAt":{"$$date":1599713113441}}
+{"$$deleted":true,"_id":"qWXFQzlTa8XhsvG4"}
+{"$$deleted":true,"_id":"znrpKoaoj4RgfonG"}
+{"title":"clean house","checked":false,"urgent":false,"listId":"u4EAnBLjKjYWEGGw","_id":"aDK8hltQ2FngOHD0","createdAt":{"$$date":1599713113968},"updatedAt":{"$$date":1599713113968}}
+{"title":"clean house","checked":true,"urgent":false,"listId":"u4EAnBLjKjYWEGGw","_id":"aDK8hltQ2FngOHD0","createdAt":{"$$date":1599713113968},"updatedAt":{"$$date":1599713113977}}
+{"title":"dishes","checked":false,"urgent":false,"listId":"iEy0bTwjlx2gavFy","_id":"5ZVJ7xv4u6XJPZ1v","createdAt":{"$$date":1599713114506},"updatedAt":{"$$date":1599713114506}}
+{"title":"Water the plants","checked":false,"urgent":false,"listId":"iEy0bTwjlx2gavFy","_id":"KVEjVtWi0Ou2sODw","createdAt":{"$$date":1599713114510},"updatedAt":{"$$date":1599713114510}}
+{"title":"patatas","checked":false,"urgent":false,"listId":"2g6xnJpMnD6WWCN2","_id":"ABdfJqNySkQmoc5p","createdAt":{"$$date":1599713114514},"updatedAt":{"$$date":1599713114514}}
+{"title":"tomatoes","checked":false,"urgent":false,"listId":"2g6xnJpMnD6WWCN2","_id":"3zGsnUVZFfTttq00","createdAt":{"$$date":1599713114518},"updatedAt":{"$$date":1599713114518}}

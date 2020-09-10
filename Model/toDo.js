@@ -25,16 +25,7 @@ module.exports = {
                     urgent: false,
                     listId: listId
                 })
-                const list = todoList.update(
-                {
-                    _id: listId,
-                },
-                {
-                    $push: {
-                        
-                    }
-                }
-                )
+                
                 // console.log(1)
                 resolve(task)
             } catch (error) {

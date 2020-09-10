@@ -11,7 +11,7 @@ module.exports = {
                 bcrypt.hash(password, 10, async (error, hashedPassword) => {
                     try {
 
-                        users.insert(
+                        const user = await users.insert(
                             {
                                 username: username,
                                 password: hashedPassword,
@@ -19,7 +19,7 @@ module.exports = {
                             }
                         )
                         // console.log('user added')
-                        resolve('User was added')
+                        resolve({msg: 'User was added', _id: user._id})
                     } catch (error) {
                         reject(error)
                     }

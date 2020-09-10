@@ -15,7 +15,7 @@ module.exports = {
                         hashedPassword,
                         role
                         );
-                    res.json("Created user succesfully").status(200);
+                    res.json({msg: "Created user succesfully", _id: user._id}).status(200);
                 } else {
                     res.json({error: "Username already registered!"})
                 }

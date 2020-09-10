@@ -9,15 +9,14 @@ describe("This test should create a todolist then add some tasks", async () => {
 
     beforeEach(async function () {
         return new Promise(async (resolve) => {
-            const user = 'nicke'
+            const username = 'nicke'
             const password = 'nickechai'
             const role = 'admin'
-            this.currentTest.user =  await users.addUser(user, password, role) 
-
-            setTimeout(async () => {
-                this.currentTest.token = (await users.login('nicke', 'nickechai')).token
-                let currUser = await users.findUser('nicke') 
-                this.currentTest.list = await todo.create('chores', currUser._id)
+           
+            await users.addUser(username, password, role) 
+            setTimeout(async  () => {
+                this.currentTest.user = await users.findUser('nicke') 
+                this.currentTest.list = await todo.create('chores', this.currentTest.user._id)
                 resolve();
             }, 500);
         })
@@ -25,7 +24,7 @@ describe("This test should create a todolist then add some tasks", async () => {
     })
 
     it("should add tasks to a todolist", async function () {
- 
+        
         await todo.add('clean house', this.test.list._id)
         await todo.add('water plants', this.test.list._id)
         
@@ -60,5 +59,19 @@ describe("This test should create a todolist then add some tasks", async () => {
         expect(updatedTask.checked).to.equal(true)
         expect(typeof(updatedTask)).to.equal(typeof(obj))
 
+    })
+
+    it("should create multiple todolists and add tasks to them", async function () {
+           
+        let anotherList = await todo.create('Groceries', this.test.user._id)
+
+        let task1 = await todo.add("dishes", this.test.list._id)
+        let task2 = await todo.add("Water the plants", this.test.list._id)
+        let task3 =await todo.add("patatas", anotherList._id)
+        let task4 =await todo.add("tomatoes", anotherList._id)
+
+        expect(anotherList._id).to.equal(task3.listId && task4.listId)
+        expect(this.test.list._id).to.equal(task1.listId && task2.listId)
+        expect(this.test.user._id).to.equal(this.test.list.ownerId && anotherList.ownerId)
     })
 })
