@@ -94,9 +94,9 @@ module.exports = {
     getAllByOwnerId: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = await todoList.find({ownerId: id})
-               
-                resolve(docs)
+                const lists = await todoList.find({ownerId: id})
+                const tasks = await todoCollection.find({ownerId: id})
+                resolve({lists: lists, tasks: tasks})
             } catch (error) {
                 reject(error)
             }
@@ -297,6 +297,7 @@ module.exports = {
             try {
                 const lists = await todoList.deleteMany({ownerId: userId})
                 const tasks = await todoCollection.deleteMany({ownerId: userId})
+                
                 resolve('User data was deleted!')
             } catch (error) {
                 reject(error)

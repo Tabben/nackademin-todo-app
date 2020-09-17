@@ -213,7 +213,6 @@ describe("This test should create a todolist then add some tasks", async () => {
             sortBy: -1
         })
         .end((err, res) => {
-        
            expect(res.body.length).to.equal(3)
            expect(res.body[0].title).to.equal('3')
         })
@@ -231,5 +230,27 @@ describe("This test should create a todolist then add some tasks", async () => {
            expect(res.body.length).to.equal(3)
            expect(res.body[0].title).to.equal('clean house')
         })
+    })
+
+    it('should remove a user and all its recordings in the database', async function () {
+        let current = await todo.getAllByOwnerId(this.test.user._id)
+
+        chai.request(app)
+        .delete(`/user/`)
+        .set("Content-Type", "application/json")
+        .set('token',`Bearer ${this.test.token}`)
+        .end(async (err, res) => {
+          
+            let history = await todo.getAllByOwnerId(this.test.user._id)
+            let user1 = await users.findUser('nicke')
+
+            expect(user1).to.equal(null)
+            expect(history).to.not.equal(current)
+            expect(history.lists.length).to.equal(0)
+            expect(history.tasks.length).to.equal(0)
+            expect(res.body.msg).to.equal('User has been deleted')
+           
+        })
+            
     })
 })

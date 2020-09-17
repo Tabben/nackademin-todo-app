@@ -54,10 +54,32 @@ module.exports = {
             }
         })
     },
-    deleteUser: (userId) => {
+    findUserById: (userId) => {
+    
         return new Promise(async (resolve, reject) => {
             try {
+                
+                const docs = await users.findOne(
+                    {
+                        _id: userId
+                    }
+                )
+                // console.log('user search completed')
+                resolve(docs)
+            } catch (error) {
+                // console.log(2)
+                reject(error)
+            }
+        })
+    },
+    deleteUser: (userId) => {
+        
+        return new Promise(async (resolve, reject) => {
+            try {
+                
                 await users.deleteOne({_id: userId})
+                
+                
                 resolve('User deleted')
             } catch (error) {
                 reject(error)

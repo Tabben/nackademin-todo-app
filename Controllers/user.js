@@ -38,14 +38,18 @@ module.exports = {
         }   
     },
     delete: async(req, res) => {
+    
         const user = req.user._id
+       
         try {
-            const userExists = await db.findUser(
-                user
-            )
+            const userExists = await db.findUserById(user)
+            
             if(userExists) {
-                const user = await db.deleteUser(user);
+                
+                await db.deleteUser(user);
+              
                 await todo.deleteUserData(user)
+              
                 res.json({msg: 'User has been deleted'}).status(200);
             } else {
                 res.json({error: "User doesn't exist"})
