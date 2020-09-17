@@ -34,7 +34,7 @@ describe("This test should create a todolist then add some tasks", async () => {
     it("should add a task", async function () {
  
 
-        await todo.add('clean house', this.test.list._id)
+        await todo.add('clean house', this.test.list._id, this.test.user._id)
         
         let tasks = await todo.getTasksByListId(this.test.list._id)
         expect(tasks.length).to.equal(1)
@@ -59,7 +59,7 @@ describe("This test should create a todolist then add some tasks", async () => {
 
     it("should get a todolists' tasks", async function () {
 
-        await todo.add('clean house1', this.test.list._id)
+        await todo.add('clean house1', this.test.list._id, this.test.user._id)
 
         chai.request(app)
         .get(`/tasks/${this.test.list._id}`)
@@ -76,7 +76,7 @@ describe("This test should create a todolist then add some tasks", async () => {
 
     it("should delete a task", async function () {
 
-        let task = await todo.add('water plants2', this.test.list._id)
+        let task = await todo.add('water plants2', this.test.list._id, this.test.user._id)
 
         chai.request(app)
         .delete(`/tasks/${task._id}`)
@@ -163,12 +163,12 @@ describe("This test should create a todolist then add some tasks", async () => {
     it("should add several tasks to a list and sort by created, updated and paginate", async function () {
         
         
-        await todo.add('1', this.test.list._id)
-        await todo.add('2', this.test.list._id)
-        let task = await todo.add('3', this.test.list._id)
-        await todo.add('4', this.test.list._id)
-        await todo.add('5', this.test.list._id)
-        await todo.add('6', this.test.list._id)
+        await todo.add('1', this.test.list._id, this.test.user._id)
+        await todo.add('2', this.test.list._id, this.test.user._id)
+        let task = await todo.add('3', this.test.list._id, this.test.user._id)
+        await todo.add('4', this.test.list._id, this.test.user._id)
+        await todo.add('5', this.test.list._id, this.test.user._id)
+        await todo.add('6', this.test.list._id, this.test.user._id)
 
         await todo.setCheck(task._id, true)
 
