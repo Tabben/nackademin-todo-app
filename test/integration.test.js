@@ -190,7 +190,7 @@ describe("This test should create a todolist then add some tasks", async () => {
 
 
         chai.request(app)
-        .post(`/list/${this.test.list._id}/1`)
+        .post(`/list/${this.test.list._id}/2`)
         .set("Content-Type", "application/json")
         .set('token',`Bearer ${this.test.token}`)
         .send({
@@ -198,9 +198,9 @@ describe("This test should create a todolist then add some tasks", async () => {
             sortBy: -1
         })
         .end((err, res) => {
-           console.log(res.body[2])
+           
            expect(res.body.length).to.equal(3)
-           expect(res.body[2].title).to.equal('3')
+           expect(res.body[2].title).to.equal('1')
         })
 
    
@@ -213,9 +213,9 @@ describe("This test should create a todolist then add some tasks", async () => {
             sortBy: -1
         })
         .end((err, res) => {
-            console.log(res.body)
+        
            expect(res.body.length).to.equal(3)
-           expect(res.body[0].title).to.equal('clean house')
+           expect(res.body[0].title).to.equal('3')
         })
 
         chai.request(app)
@@ -227,9 +227,9 @@ describe("This test should create a todolist then add some tasks", async () => {
             sortBy: 1
         })
         .end((err, res) => {
-           console.log(res.body)
+        
            expect(res.body.length).to.equal(3)
-           expect(res.body[0].title).to.equal('3')
+           expect(res.body[0].title).to.equal('clean house')
         })
     })
 })

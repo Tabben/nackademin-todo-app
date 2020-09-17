@@ -13,6 +13,9 @@ const task = new mongoose.Schema({
     ownerId: mongoose.Schema.Types.ObjectId,
 })
 
+list.set('timestamps', true)
+task.set('timestamps', true)
+
 const todoCollection = mongoose.model('todoCollection', task)
 const todoList = mongoose.model('todoList', list)
 
