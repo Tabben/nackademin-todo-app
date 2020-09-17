@@ -1,4 +1,5 @@
 const db = require('../Model/user')
+const todo = require('../Model/toDo')
 const bcrypt = require('bcryptjs')
 
 module.exports = {
@@ -36,4 +37,21 @@ module.exports = {
             res.json({msg: 'login failed'})
         }   
     },
+    delete: async(req, res) => {
+        const user = req.user._id
+        try {
+            const userExists = await db.findUser(
+                user
+            )
+            if(userExists) {
+                const user = await db.deleteUser(user);
+                await todo.deleteUserData(user)
+                res.json({msg: 'User has been deleted'}).status(200);
+            } else {
+                res.json({error: "User doesn't exist"})
+            }
+        } catch (error) {
+            
+        }
+    }
 }

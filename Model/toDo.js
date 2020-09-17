@@ -1,33 +1,51 @@
-const { todoCollection, todoList } = require('./db')
+const mongoose = require('mongoose')
 
+const list = new mongoose.Schema({
+    title: String,
+    ownerId: String
+})
+
+const task = new mongoose.Schema({
+    title: String,
+    checked: Boolean,
+    urgent: Boolean,
+    listId: String,
+    ownerId: mongoose.Schema.Types.ObjectId,
+})
+
+const todoCollection = mongoose.model('todoCollection', task)
+const todoList = mongoose.model('todoList', list)
 
 module.exports = {
 
     create: (title, ownerId) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const list = await todoList.insert({title: title, ownerId: ownerId})
-
-                resolve(list)
+                const list = {title: title, ownerId: ownerId}
+                const insert = await todoList.create(list)
+                console.log('list created')
+                resolve(insert)
             } catch (error) {
                 reject(error)
             }
         })
     },
-    add: (title, listId) => {
+    add: (title, listId, ownerId) => {
        
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const task = await todoCollection.insert({
+                const task = {
                     title: title,
                     checked: false,
                     urgent: false,
-                    listId: listId
-                })
+                    listId: listId,
+                    ownerId: ownerId
+                }
+                const insert = await todoCollection.insert(task)
                 
                 // console.log(1)
-                resolve(task)
+                resolve(insert)
             } catch (error) {
                 // console.log(2)
                 reject(error)
@@ -38,7 +56,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = await todoList.find({})
+                const docs = await todoList.find()
                
                 resolve(docs)
             } catch (error) {
@@ -98,7 +116,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = await todoCollection.update(
+                const docs = await todoCollection.updateOne(
                     {
                         _id: id
                     },
@@ -123,7 +141,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = await todoCollection.update(
+                const docs = await todoCollection.updateOne(
                     {
                         _id: id
                     },
@@ -148,7 +166,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 
-                const docs = await todoList.update(
+                const docs = await todoList.updateOne(
                     {
                         _id: id
                     },
@@ -171,7 +189,7 @@ module.exports = {
     deleteList: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const list = await todoList.remove(
+                const list = await todoList.deleteOne(
                     {
                         _id: id
                     }
@@ -179,12 +197,9 @@ module.exports = {
                 if(list == undefined) {
                     resolve('undefined')
                 }
-                const tasks = await todoCollection.remove(
+                const tasks = await todoCollection.deleteMany(
                     {
                         listId: id
-                    },
-                    {
-                        multi: true
                     }
                 )
                 
@@ -198,7 +213,7 @@ module.exports = {
         
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = await todoCollection.remove(
+                const docs = await todoCollection.deleteOne(
                     {
                         _id: id
                     }
@@ -214,12 +229,9 @@ module.exports = {
         
         return new Promise(async (resolve, reject) => {
             try {
-                const docs = await todoCollection.remove(
+                const docs = await todoCollection.deleteMany(
                     {
                         listId: id
-                    },
-                    {
-                        multi: true
                     }
                 )
                 resolve('deleted')
@@ -276,5 +288,16 @@ module.exports = {
                 }
             })
         }
+    },
+    deleteUserData: (userId) => {
+        return new Promise( async (resolve, reject) => {
+            try {
+                const lists = await todoList.deleteMany({ownerId: userId})
+                const tasks = await todoCollection.deleteMany({ownerId: userId})
+                resolve('User data was deleted!')
+            } catch (error) {
+                reject(error)
+            }
+        })
     }
 }

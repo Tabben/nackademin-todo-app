@@ -35,7 +35,7 @@ document.addEventListener('click', async (event) => {
             }
         }
         
-        await fetch(`/todo/${parentId}`, remove)
+        await fetch(`/tasks/${parentId}`, remove)
         .then(res => res.text())
         .then(log => {
             console.log(log)
@@ -122,8 +122,7 @@ document.addEventListener('click', async (event) => {
 
         let inputGrandPaIndex =Array.prototype.indexOf.call(targetParent.parentNode.parentNode.children, targetParent.parentNode)
         let done = document.getElementById('check' + inputGrandPaIndex).checked
-        console.log(inputGrandPaIndex)
-        console.log(done)
+
         const data = {
             checked: done
         }
@@ -135,11 +134,32 @@ document.addEventListener('click', async (event) => {
             },
             body: JSON.stringify(data) 
         }
-        console.log(grandpaId)
-        await fetch(`/todo/${grandpaId}`, patch)
+        
+        await fetch(`/tasks/check/${grandpaId}`, patch)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
+    // if(target.name == 'urgent') {
+
+    //     let inputGrandPaIndex =Array.prototype.indexOf.call(targetParent.parentNode.parentNode.children, targetParent.parentNode)
+    //     let done = document.getElementById('urgent' + inputGrandPaIndex).checked
+
+    //     const data = {
+    //         checked: done
+    //     }
+    //     const patch = {
+    //         method: 'PATCH', 
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //             'token': currentUser
+    //         },
+    //         body: JSON.stringify(data) 
+    //     }
+        
+    //     await fetch(`/tasks/urgent/${grandpaId}`, patch)
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // }
 
     if(target.id == 'addNew') {
         let btn = document.getElementById('addNew')
@@ -183,7 +203,7 @@ document.addEventListener('click', async (event) => {
             body: JSON.stringify(data)
         }
 
-        await fetch('/todo', post)
+        await fetch(`/tasks/${listId}`, post)
         .then(res => console.log(res))
         .then(data => load())
         .catch(err => console.log(err))

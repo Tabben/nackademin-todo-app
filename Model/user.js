@@ -1,7 +1,15 @@
-const { users } = require('./db')
+const mongoose = require('mongoose')
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const secret = "secret";
+
+const userSchema = new mongoose.Schema({
+    username: {type: String, unique: true},
+    password: String,
+    role: String
+})
+
+const users = mongoose.model('users', userSchema)
 
 module.exports = {
     addUser: async (username, password, role) => {
@@ -10,16 +18,15 @@ module.exports = {
 
                 bcrypt.hash(password, 10, async (error, hashedPassword) => {
                     try {
-
-                        const user = await users.insert(
-                            {
-                                username: username,
-                                password: hashedPassword,
-                                role: role
-                            }
-                        )
-                        // console.log('user added')
-                        resolve({msg: 'User was added', _id: user._id})
+                        const details = {
+                            username: username,
+                            password: hashedPassword,
+                            role: role
+                        }
+    
+                        const user = await users.create(details)
+                        console.log('user added')
+                        resolve({msg: 'User was added', user: user})
                     } catch (error) {
                         reject(error)
                     }
@@ -31,7 +38,7 @@ module.exports = {
             }
         })
     },
-    findUser: async (username) => {
+    findUser: (username) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const docs = await users.findOne(
@@ -47,7 +54,18 @@ module.exports = {
             }
         })
     },
-    login: async (username, password) => {
+    deleteUser: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await users.deleteOne({_id: userId})
+                resolve('User deleted')
+            } catch (error) {
+                reject(error)
+            }
+           
+        })
+    },
+    login: (username, password) => {
         return new Promise(async (resolve, reject) => {    
             try {
 
