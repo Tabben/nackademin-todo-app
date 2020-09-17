@@ -70,21 +70,26 @@ module.exports = {
             try {
 
                 const user = await module.exports.findUser(username)
- 
+                
                 if(user) {
-                    
-                    if(bcrypt.compareSync(password, user.password)) {
-                        const token = jwt.sign(user, secret)
-                        // console.log('login succeeded')
-                        resolve({
-                            token: token,
-                            msg: 'Login suceeded'
-                        })
+                  
+                    bcrypt.compare(password, user.password, (err, res) => {
                         
-                    } else {
-                        reject({msg: 'Login failed'})
-                        // console.log('login failed')
-                    }
+                        if(res) {
+                            const token = jwt.sign(user.toJSON(), secret)
+                            
+                            console.log('login succeeded')
+                            resolve({
+                                token: token,
+                                msg: 'Login suceeded'
+                            })
+                        } else {
+                            reject({msg: 'LOGIn failed'})
+                        }
+                    }) 
+                        
+                        
+                    
                    
                 } else {
                     reject({msg:'user does not exist'})

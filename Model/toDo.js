@@ -23,7 +23,7 @@ module.exports = {
             try {
                 const list = {title: title, ownerId: ownerId}
                 const insert = await todoList.create(list)
-                console.log('list created')
+                
                 resolve(insert)
             } catch (error) {
                 reject(error)
