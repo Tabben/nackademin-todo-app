@@ -42,7 +42,7 @@ module.exports = {
                     listId: listId,
                     ownerId: ownerId
                 }
-                const insert = await todoCollection.insert(task)
+                const insert = await todoCollection.create(task)
                 
                 // console.log(1)
                 resolve(insert)

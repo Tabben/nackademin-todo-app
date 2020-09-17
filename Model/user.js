@@ -25,7 +25,7 @@ module.exports = {
                         }
     
                         const user = await users.create(details)
-                        console.log('user added')
+                        
                         resolve({msg: 'User was added', user: user})
                     } catch (error) {
                         reject(error)
