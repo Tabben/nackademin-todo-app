@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 document.addEventListener('click', async (event) => {
 
     let currPage = localStorage.getItem('currPage');
-    const totalPages = localStorage.getItem('pages');
     let sortBy = localStorage.getItem('sortBy')
     let sortStyle = localStorage.getItem('sortStyle')
 
@@ -41,7 +40,6 @@ document.addEventListener('click', async (event) => {
             console.log(log)
             if(log != 'Unauthorized') {
                 let data = JSON.parse(log)
-                
                 targetGrandpa.removeChild(targetParent)
                 
             }
@@ -383,7 +381,7 @@ document.addEventListener('click', async (event) => {
             .then(res => res.text())
             .then(data => {
                 let val = JSON.parse(data)
-
+                console.log(val)
                 if(val['token'] != undefined) {
                     sessionStorage.setItem('token', 'Bearer '+ val['token'])
                     console.log(sessionStorage.getItem('token'))

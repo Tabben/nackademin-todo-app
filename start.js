@@ -1,7 +1,6 @@
 const app = require('./app')
 const database = require('./Model/db')
 
-
 if(process.env.ENVIROMENT === 'dev') {
     database.connect()
 }

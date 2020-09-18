@@ -24,9 +24,8 @@ if(process.env.ENVIROMENT == 'dev') {
     //     })
     // }
     db = {
-        getUri: async () => {
-            `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@${process.env.DBHOST}/${process.env.DBNAME}?retryWrites=true&w=majority`
-        }
+        getUri: 
+            `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@${process.env.DBHOST}/${process.env.DBNAME}?retryWrites=true&w=majority`
     }
     
 } else {
@@ -57,12 +56,18 @@ if(process.env.ENVIROMENT == 'dev') {
 }
 
 async function connect() {
-    let uri = await db.getUri()
-    await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+    let uri = db.getUri
+ 
+    await mongoose.connect(
+        uri, 
+        {
+            useNewUrlParser: true, 
+            useUnifiedTopology: true
+        })
     if (!mongoose.connection) {
         throw new MongooseError("Could not connect to database!")
     } else {
-        console.log('connected to db')
+        console.log('Connected to DB')
     }
 }
 

@@ -95,7 +95,7 @@ module.exports = {
                 
                 if(user) {
                   
-                    bcrypt.compare(password, user.password, (err, res) => {
+                    await bcrypt.compare(password, user.password, (err, res) => {
                         
                         if(res) {
                             const token = jwt.sign(user.toJSON(), secret)
@@ -108,16 +108,11 @@ module.exports = {
                         } else {
                             reject({msg: 'LOGIn failed'})
                         }
-                    }) 
-                        
-                        
-                    
+                    })
                    
                 } else {
                     reject({msg:'user does not exist'})
                 }
-                
-
             } catch (error) {
                 reject({msg: error.message})
             }

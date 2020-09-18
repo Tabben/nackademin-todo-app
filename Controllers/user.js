@@ -16,7 +16,7 @@ module.exports = {
                         hashedPassword,
                         role
                         );
-                    res.json({msg: "Created user succesfully", _id: user._id}).status(200);
+                    res.json({msg: "Created user succesfully", user: user}).status(200);
                 } else {
                     res.json({error: "Username already registered!"})
                 }
@@ -29,12 +29,11 @@ module.exports = {
     login: async (req, res) => {
         const { username, password } = req.body;
         try {
-              
-                const user = await db.login(username, password)
-                res.json(user)
+            const user = await db.login(username, password)
+            res.json(user)
 
         } catch (error) {
-            res.json({msg: 'login failed'})
+            res.json({msg: error})
         }   
     },
     delete: async(req, res) => {

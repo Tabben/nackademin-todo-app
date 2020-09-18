@@ -1,0 +1,16 @@
+Privacy Policy  
+
+What data is saved?
+- Username and encrypted password are saved, not even the administrator can find out the users password.
+- Anything users create ill be saved, like todo-lists and tasks.
+
+Why is the data saved?
+- This is to give users the possibility of saving multiple todo-lists to use for their on benefit.
+
+How is the data used?
+- Users data can connenct them with eachother, for example sharing todo-lists.
+- Users can check tasks as done or urgent to interact and change their saved data (todo-lists).
+- Developers will use the unique ID of users account to make this webb service possible.
+
+How do you remove data?
+- If you'd like to remove all data we have on you, just delete your account and all history, lists and tasks, will be removed
