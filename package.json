@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "SET ENVIROMENT=TEST&&mocha",
-    "start": "SET ENVIROMENT=dev&&nodemon start.js"
+    "test": "cross-env ENVIROMENT=TEST && mocha --recursive",
+    "start": "cross-env ENVIROMENT=dev && nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
