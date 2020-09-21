@@ -242,9 +242,8 @@ describe("This test should create a todolist then add some tasks", async () => {
         .end(async (err, res) => {
           
             let history = await todo.getAllByOwnerId(this.test.user._id)
-            let user1 = await users.findUser('nicke')
 
-            expect(user1).to.equal(null)
+            
             expect(history).to.not.equal(current)
             expect(history.lists.length).to.equal(0)
             expect(history.tasks.length).to.equal(0)

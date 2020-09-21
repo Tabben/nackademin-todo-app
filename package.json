@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "cross-env ENVIROMENT=TEST && mocha --recursive",
+    "test": "cross-env ENVIROMENT=TEST && mocha --recursive --exit",
     "start": "cross-env ENVIROMENT=dev && nodemon start.js"
   },
   "repository": {
