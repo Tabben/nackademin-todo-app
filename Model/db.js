@@ -24,7 +24,7 @@ if(process.env.ENVIROMENT == 'dev') {
     //     })
     // }
     db = {
-        getUri : () => {
+        getUri : async () => {
             `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@${process.env.DBHOST}/${process.env.DBNAME}?retryWrites=true&w=majority`
         }
             
@@ -58,7 +58,7 @@ if(process.env.ENVIROMENT == 'dev') {
 }
 
 async function connect() {
-    let uri = db.getUri()
+    let uri = await db.getUri()
  
     await mongoose.connect(
         uri, 
